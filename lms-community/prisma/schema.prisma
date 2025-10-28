@@ -1,0 +1,662 @@
+// This is your Prisma schema file for LMS Community Platform
+// Learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ============================================
+// ENUMS
+// ============================================
+
+enum Role {
+  SUPER_ADMIN // Full system access - manage all users, courses, payments
+  FINANCE     // Payment and invoicing management
+  TEACHER     // Course creation, materials, grading
+  STUDENT     // Enrollment, viewing materials, taking assignments
+}
+
+enum CourseStatus {
+  DRAFT      // Course being created
+  PUBLISHED  // Active and enrollable
+  ARCHIVED   // No longer active but viewable
+}
+
+enum EnrollmentStatus {
+  PENDING    // Awaiting payment or approval
+  ACTIVE     // Currently enrolled
+  COMPLETED  // Course completed
+  CANCELLED  // Enrollment cancelled
+  EXPIRED    // Enrollment period expired
+}
+
+enum MaterialType {
+  PDF
+  IMAGE
+  VIDEO
+  DOCUMENT
+  LINK
+}
+
+enum AssignmentStatus {
+  DRAFT      // Teacher creating assignment
+  PUBLISHED  // Available to students
+  CLOSED     // No longer accepting submissions
+}
+
+enum SubmissionStatus {
+  NOT_SUBMITTED
+  SUBMITTED
+  GRADED
+  LATE_SUBMISSION
+}
+
+enum PaymentStatus {
+  PENDING
+  PAID
+  FAILED
+  REFUNDED
+  CANCELLED
+}
+
+enum PaymentMethod {
+  BANK_TRANSFER
+  CREDIT_CARD
+  E_WALLET
+  CASH
+}
+
+// ============================================
+// USER MANAGEMENT
+// ============================================
+
+model User {
+  id                String    @id @default(cuid())
+  email             String    @unique
+  emailVerified     DateTime?
+  name              String?
+  password          String?   // Nullable for OAuth users
+  role              Role      @default(STUDENT)
+
+  // Google OAuth fields
+  googleId          String?   @unique
+  googleAccessToken String?   @db.Text
+  googleRefreshToken String?  @db.Text
+  image             String?   // Profile picture URL
+
+  // Profile information
+  phone             String?
+  address           String?   @db.Text
+  bio               String?   @db.Text
+
+  // Account status
+  isActive          Boolean   @default(true)
+  isVerified        Boolean   @default(false)
+  lastLogin         DateTime?
+
+  // Soft delete
+  deletedAt         DateTime?
+
+  // Timestamps
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+
+  // Relations
+  coursesCreated    Course[]  @relation("CourseCreator")
+  enrollments       Enrollment[]
+  submissions       Submission[]
+  grades            Grade[]   @relation("GradedByTeacher")
+  paymentsCreated   Payment[] @relation("PaymentCreatedBy")
+  paymentsFor       Payment[] @relation("PaymentFor")
+  announcements     Announcement[]
+  fileUploads       FileUpload[]
+  sessions          Session[]
+  accounts          Account[]
+
+  @@index([email])
+  @@index([googleId])
+  @@index([role])
+  @@index([isActive])
+  @@map("users")
+}
+
+// For NextAuth.js compatibility
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+  @@index([userId])
+  @@map("accounts")
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@map("sessions")
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+  @@map("verification_tokens")
+}
+
+// ============================================
+// COURSE MANAGEMENT
+// ============================================
+
+model Category {
+  id          String   @id @default(cuid())
+  name        String   @unique
+  slug        String   @unique
+  description String?  @db.Text
+  icon        String?  // Icon name or URL
+  color       String?  // Hex color for UI
+
+  // Hierarchy support
+  parentId    String?
+  parent      Category?  @relation("CategoryHierarchy", fields: [parentId], references: [id])
+  children    Category[] @relation("CategoryHierarchy")
+
+  // Status
+  isActive    Boolean  @default(true)
+
+  // Timestamps
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relations
+  courses     Course[]
+
+  @@index([slug])
+  @@index([parentId])
+  @@index([isActive])
+  @@map("categories")
+}
+
+model Course {
+  id              String       @id @default(cuid())
+  title           String
+  slug            String       @unique
+  description     String       @db.Text
+  shortDescription String?     @db.Text
+
+  // Course details
+  thumbnail       String?      // Google Drive URL or external URL
+  videoPreview    String?      // Preview video URL
+  price           Decimal      @default(0) @db.Decimal(10, 2)
+  duration        Int?         // Duration in hours
+  level           String?      // Beginner, Intermediate, Advanced
+  language        String       @default("id") // Language code
+
+  // Course metadata
+  status          CourseStatus @default(DRAFT)
+  isPublished     Boolean      @default(false)
+  publishedAt     DateTime?
+
+  // Enrollment settings
+  maxStudents     Int?         // Null = unlimited
+  enrollmentStart DateTime?
+  enrollmentEnd   DateTime?
+  courseStart     DateTime?
+  courseEnd       DateTime?
+
+  // Creator
+  creatorId       String
+  creator         User         @relation("CourseCreator", fields: [creatorId], references: [id])
+
+  // Category
+  categoryId      String?
+  category        Category?    @relation(fields: [categoryId], references: [id])
+
+  // SEO
+  metaTitle       String?
+  metaDescription String?      @db.Text
+  keywords        String[]
+
+  // Statistics
+  viewCount       Int          @default(0)
+  enrollmentCount Int          @default(0)
+  rating          Decimal?     @db.Decimal(3, 2) // Average rating 0-5
+  reviewCount     Int          @default(0)
+
+  // Soft delete
+  deletedAt       DateTime?
+
+  // Timestamps
+  createdAt       DateTime     @default(now())
+  updatedAt       DateTime     @updatedAt
+
+  // Relations
+  enrollments     Enrollment[]
+  materials       Material[]
+  assignments     Assignment[]
+  announcements   Announcement[]
+
+  @@index([slug])
+  @@index([creatorId])
+  @@index([categoryId])
+  @@index([status])
+  @@index([isPublished])
+  @@index([createdAt])
+  @@map("courses")
+}
+
+// ============================================
+// ENROLLMENT & STUDENT PROGRESS
+// ============================================
+
+model Enrollment {
+  id              String           @id @default(cuid())
+
+  // Relations
+  studentId       String
+  student         User             @relation(fields: [studentId], references: [id])
+  courseId        String
+  course          Course           @relation(fields: [courseId], references: [id])
+
+  // Enrollment details
+  status          EnrollmentStatus @default(PENDING)
+  enrolledAt      DateTime         @default(now())
+  completedAt     DateTime?
+  expiresAt       DateTime?
+
+  // Progress tracking
+  progress        Int              @default(0) // Percentage 0-100
+  lastAccessedAt  DateTime?
+
+  // Certificate
+  certificateUrl  String?          // Google Drive URL
+  certificateIssuedAt DateTime?
+
+  // Payment reference
+  paymentId       String?          @unique
+  payment         Payment?         @relation(fields: [paymentId], references: [id])
+
+  // Timestamps
+  createdAt       DateTime         @default(now())
+  updatedAt       DateTime         @updatedAt
+
+  // Relations
+  submissions     Submission[]
+  grades          Grade[]
+
+  @@unique([studentId, courseId])
+  @@index([studentId])
+  @@index([courseId])
+  @@index([status])
+  @@index([enrolledAt])
+  @@map("enrollments")
+}
+
+// ============================================
+// COURSE CONTENT
+// ============================================
+
+model Material {
+  id              String       @id @default(cuid())
+  title           String
+  description     String?      @db.Text
+
+  // Material details
+  type            MaterialType
+  fileUrl         String?      // Google Drive URL
+  fileId          String?      // Google Drive File ID
+  fileName        String?
+  fileSize        Int?         // Size in bytes
+  mimeType        String?
+
+  // External links
+  externalUrl     String?      // For external resources
+  embedCode       String?      @db.Text // For embedded content
+
+  // Organization
+  order           Int          @default(0)
+  duration        Int?         // Duration in minutes (for videos)
+
+  // Access control
+  isFree          Boolean      @default(false) // Free preview material
+  isDownloadable  Boolean      @default(true)
+
+  // Course relation
+  courseId        String
+  course          Course       @relation(fields: [courseId], references: [id], onDelete: Cascade)
+
+  // Soft delete
+  deletedAt       DateTime?
+
+  // Timestamps
+  createdAt       DateTime     @default(now())
+  updatedAt       DateTime     @updatedAt
+
+  @@index([courseId])
+  @@index([type])
+  @@index([order])
+  @@map("materials")
+}
+
+// ============================================
+// ASSIGNMENTS & GRADING
+// ============================================
+
+model Assignment {
+  id              String           @id @default(cuid())
+  title           String
+  description     String           @db.Text
+  instructions    String?          @db.Text
+
+  // Assignment details
+  status          AssignmentStatus @default(DRAFT)
+  maxScore        Int              @default(100)
+  passingScore    Int?
+
+  // Deadlines
+  startDate       DateTime?
+  dueDate         DateTime?
+  lateSubmissionAllowed Boolean    @default(false)
+  lateDeadline    DateTime?
+
+  // Attachments
+  attachmentUrls  String[]         // Google Drive URLs
+  attachmentIds   String[]         // Google Drive File IDs
+
+  // Course relation
+  courseId        String
+  course          Course           @relation(fields: [courseId], references: [id], onDelete: Cascade)
+
+  // Organization
+  order           Int              @default(0)
+  weight          Int              @default(1) // Weight for final grade calculation
+
+  // Soft delete
+  deletedAt       DateTime?
+
+  // Timestamps
+  createdAt       DateTime         @default(now())
+  updatedAt       DateTime         @updatedAt
+
+  // Relations
+  submissions     Submission[]
+
+  @@index([courseId])
+  @@index([status])
+  @@index([dueDate])
+  @@map("assignments")
+}
+
+model Submission {
+  id              String           @id @default(cuid())
+
+  // Relations
+  assignmentId    String
+  assignment      Assignment       @relation(fields: [assignmentId], references: [id], onDelete: Cascade)
+  enrollmentId    String
+  enrollment      Enrollment       @relation(fields: [enrollmentId], references: [id])
+  studentId       String
+  student         User             @relation(fields: [studentId], references: [id])
+
+  // Submission details
+  status          SubmissionStatus @default(NOT_SUBMITTED)
+  content         String?          @db.Text
+  attachmentUrls  String[]         // Google Drive URLs
+  attachmentIds   String[]         // Google Drive File IDs
+
+  // Submission metadata
+  submittedAt     DateTime?
+  isLate          Boolean          @default(false)
+  attemptNumber   Int              @default(1)
+
+  // Grading
+  gradeId         String?          @unique
+  grade           Grade?
+
+  // Timestamps
+  createdAt       DateTime         @default(now())
+  updatedAt       DateTime         @updatedAt
+
+  @@unique([assignmentId, enrollmentId, attemptNumber])
+  @@index([assignmentId])
+  @@index([enrollmentId])
+  @@index([studentId])
+  @@index([status])
+  @@index([submittedAt])
+  @@map("submissions")
+}
+
+model Grade {
+  id              String       @id @default(cuid())
+
+  // Relations
+  submissionId    String       @unique
+  submission      Submission   @relation(fields: [submissionId], references: [id], onDelete: Cascade)
+  enrollmentId    String
+  enrollment      Enrollment   @relation(fields: [enrollmentId], references: [id])
+
+  // Grade details
+  score           Decimal      @db.Decimal(5, 2)
+  maxScore        Int
+  percentage      Decimal      @db.Decimal(5, 2) // Calculated percentage
+  letterGrade     String?      // A, B, C, etc.
+
+  // Feedback
+  feedback        String?      @db.Text
+  feedbackFiles   String[]     // Google Drive URLs for feedback attachments
+
+  // Grader
+  gradedById      String
+  gradedBy        User         @relation("GradedByTeacher", fields: [gradedById], references: [id])
+  gradedAt        DateTime     @default(now())
+
+  // Timestamps
+  createdAt       DateTime     @default(now())
+  updatedAt       DateTime     @updatedAt
+
+  @@index([enrollmentId])
+  @@index([gradedById])
+  @@index([gradedAt])
+  @@map("grades")
+}
+
+// ============================================
+// PAYMENTS & FINANCE
+// ============================================
+
+model Payment {
+  id              String        @id @default(cuid())
+  invoiceNumber   String        @unique
+
+  // Relations
+  studentId       String
+  student         User          @relation("PaymentFor", fields: [studentId], references: [id])
+
+  // Payment details
+  amount          Decimal       @db.Decimal(10, 2)
+  currency        String        @default("IDR")
+  status          PaymentStatus @default(PENDING)
+  method          PaymentMethod?
+
+  // Transaction details
+  description     String?       @db.Text
+  notes           String?       @db.Text
+
+  // Payment gateway data
+  transactionId   String?       @unique // External payment gateway transaction ID
+  paymentUrl      String?       // Payment gateway URL
+  metadata        Json?         // Additional payment data
+
+  // Payment proof
+  proofUrl        String?       // Google Drive URL for payment proof
+  proofFileId     String?       // Google Drive File ID
+
+  // Dates
+  paidAt          DateTime?
+  dueDate         DateTime?
+  refundedAt      DateTime?
+
+  // Finance tracking
+  verifiedById    String?
+  verifiedBy      User?         @relation("PaymentCreatedBy", fields: [verifiedById], references: [id])
+  verifiedAt      DateTime?
+
+  // Timestamps
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+
+  // Relations
+  enrollment      Enrollment?
+
+  @@index([studentId])
+  @@index([status])
+  @@index([invoiceNumber])
+  @@index([transactionId])
+  @@index([createdAt])
+  @@index([paidAt])
+  @@map("payments")
+}
+
+// ============================================
+// COMMUNICATION
+// ============================================
+
+model Announcement {
+  id              String   @id @default(cuid())
+  title           String
+  content         String   @db.Text
+
+  // Announcement details
+  isPinned        Boolean  @default(false)
+  isPublished     Boolean  @default(true)
+  publishedAt     DateTime?
+
+  // Attachments
+  attachmentUrls  String[] // Google Drive URLs
+  attachmentIds   String[] // Google Drive File IDs
+
+  // Scope - either global or course-specific
+  courseId        String?
+  course          Course?  @relation(fields: [courseId], references: [id], onDelete: Cascade)
+
+  // Creator
+  authorId        String
+  author          User     @relation(fields: [authorId], references: [id])
+
+  // Soft delete
+  deletedAt       DateTime?
+
+  // Timestamps
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@index([courseId])
+  @@index([authorId])
+  @@index([isPublished])
+  @@index([isPinned])
+  @@index([createdAt])
+  @@map("announcements")
+}
+
+// ============================================
+// FILE MANAGEMENT
+// ============================================
+
+model FileUpload {
+  id              String   @id @default(cuid())
+
+  // File details
+  fileName        String
+  originalName    String
+  mimeType        String
+  fileSize        Int      // Size in bytes
+
+  // Google Drive details
+  driveFileId     String   @unique
+  driveFileUrl    String
+  driveFolderId   String?  // Parent folder ID in Google Drive
+
+  // File metadata
+  description     String?  @db.Text
+  tags            String[]
+
+  // Uploader
+  uploadedById    String
+  uploadedBy      User     @relation(fields: [uploadedById], references: [id])
+
+  // Usage tracking
+  isPublic        Boolean  @default(false)
+  downloadCount   Int      @default(0)
+  lastAccessedAt  DateTime?
+
+  // Soft delete
+  deletedAt       DateTime?
+
+  // Timestamps
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@index([uploadedById])
+  @@index([driveFileId])
+  @@index([mimeType])
+  @@index([createdAt])
+  @@map("file_uploads")
+}
+
+// ============================================
+// SYSTEM LOGS (Optional - for audit trail)
+// ============================================
+
+model ActivityLog {
+  id          String   @id @default(cuid())
+
+  // Actor
+  userId      String?
+  userEmail   String?
+  userRole    Role?
+
+  // Action details
+  action      String   // e.g., "CREATE_COURSE", "ENROLL_STUDENT", "GRADE_ASSIGNMENT"
+  entity      String   // e.g., "Course", "Enrollment", "Grade"
+  entityId    String?
+
+  // Changes
+  oldValue    Json?
+  newValue    Json?
+
+  // Request metadata
+  ipAddress   String?
+  userAgent   String?  @db.Text
+
+  // Timestamp
+  createdAt   DateTime @default(now())
+
+  @@index([userId])
+  @@index([action])
+  @@index([entity])
+  @@index([createdAt])
+  @@map("activity_logs")
+}

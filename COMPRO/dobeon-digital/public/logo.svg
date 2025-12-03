@@ -1,0 +1,20 @@
+<svg width="200" height="50" viewBox="0 0 200 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Starburst icon -->
+  <g transform="translate(15, 25)">
+    <!-- Center circle -->
+    <circle cx="0" cy="0" r="3" fill="currentColor"/>
+
+    <!-- Rays -->
+    <rect x="-2" y="-18" width="4" height="12" rx="2" fill="currentColor" transform="rotate(0)"/>
+    <rect x="-2" y="-18" width="4" height="12" rx="2" fill="currentColor" transform="rotate(45)"/>
+    <rect x="-2" y="-18" width="4" height="12" rx="2" fill="currentColor" transform="rotate(90)"/>
+    <rect x="-2" y="-18" width="4" height="12" rx="2" fill="currentColor" transform="rotate(135)"/>
+    <rect x="-2" y="-18" width="4" height="12" rx="2" fill="currentColor" transform="rotate(180)"/>
+    <rect x="-2" y="-18" width="4" height="12" rx="2" fill="currentColor" transform="rotate(225)"/>
+    <rect x="-2" y="-18" width="4" height="12" rx="2" fill="currentColor" transform="rotate(270)"/>
+    <rect x="-2" y="-18" width="4" height="12" rx="2" fill="currentColor" transform="rotate(315)"/>
+  </g>
+
+  <!-- DOBEON text -->
+  <text x="45" y="33" font-family="system-ui, -apple-system, sans-serif" font-size="20" font-weight="700" fill="currentColor" letter-spacing="2">DOBEON</text>
+</svg>

@@ -1,0 +1,30 @@
+[build-system]
+requires = ["setuptools>=68.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "privasimu-license"
+version = "1.0.0"
+description = "Privasimu License Verification SDK — protect your Python app with enterprise-grade licensing. Works with Django, Flask, FastAPI."
+readme = "README.md"
+license = {text = "Proprietary"}
+requires-python = ">=3.9"
+authors = [
+    {name = "Privasimu", email = "dev@privasimu.id"},
+]
+keywords = ["license", "privasimu", "saas", "drm", "django", "flask", "fastapi"]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Framework :: Django",
+    "Framework :: Flask",
+    "Framework :: FastAPI",
+    "Intended Audience :: Developers",
+    "Programming Language :: Python :: 3",
+    "Topic :: Security",
+]
+
+[project.scripts]
+privasimu-license = "privasimu_license:cli"
+
+[tool.setuptools]
+py-modules = ["privasimu_license"]

@@ -1,0 +1,25 @@
+{
+  "name": "@privasimu/license-sdk",
+  "version": "1.0.0",
+  "description": "Privasimu License Verification SDK — protect your Node.js app with enterprise-grade licensing. Works with Express, Next.js, NestJS, Fastify, and more.",
+  "main": "src/index.js",
+  "exports": {
+    ".": "./src/index.js",
+    "./nestjs": "./src/nestjs.js"
+  },
+  "files": ["src/", "README.md", "LICENSE"],
+  "keywords": ["license", "privasimu", "saas", "drm", "express", "nextjs", "nestjs", "middleware", "guard"],
+  "author": "Privasimu <dev@privasimu.id>",
+  "license": "SEE LICENSE IN LICENSE",
+  "engines": { "node": ">=18.0.0" },
+  "peerDependencies": {
+    "@nestjs/common": ">=9.0.0"
+  },
+  "peerDependenciesMeta": {
+    "@nestjs/common": { "optional": true }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/privasimu/license-sdk-node"
+  }
+}

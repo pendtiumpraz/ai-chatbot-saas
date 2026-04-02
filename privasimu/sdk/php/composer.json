@@ -1,0 +1,32 @@
+{
+    "name": "privasimu/license-sdk",
+    "description": "Privasimu License Verification SDK for PHP/Laravel — protect your app with enterprise-grade licensing.",
+    "type": "library",
+    "license": "proprietary",
+    "version": "1.0.0",
+    "authors": [
+        {
+            "name": "Privasimu",
+            "email": "dev@privasimu.id"
+        }
+    ],
+    "require": {
+        "php": ">=8.1",
+        "ext-curl": "*",
+        "ext-json": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Privasimu\\License\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Privasimu\\License\\PrivasimuLicenseServiceProvider"
+            ]
+        }
+    },
+    "minimum-stability": "stable",
+    "keywords": ["license", "privasimu", "saas", "laravel", "middleware", "drm"]
+}

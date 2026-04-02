@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <PackageId>Privasimu.License</PackageId>
+    <Version>1.0.0</Version>
+    <Authors>Privasimu</Authors>
+    <Company>Sainskerta</Company>
+    <Description>Enterprise license verification SDK for ASP.NET Core apps. Protect your app with Privasimu License Manager.</Description>
+    <PackageTags>license;privasimu;saas;drm;aspnetcore</PackageTags>
+    <RepositoryUrl>https://github.com/privasimu/license-sdk-dotnet</RepositoryUrl>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+  <ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+</Project>

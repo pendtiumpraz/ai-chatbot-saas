@@ -1,8 +1,8 @@
 # 🗺️ PRIVASIMU — Development Roadmap & Phase Plan
 > **Last Updated:** 30 Maret 2026  
-> **Estimasi Progress Overall:** ~75%  
-> **Tech Stack:** Laravel 12 (Backend) + Next.js 15 (Frontend) + PostgreSQL (Neon) + Multi-Provider AI  
-> **Production:** cesena.id.rapidplex.com (cPanel + shared hosting)
+> **Estimasi Progress Overall:** ~90%  
+> **Tech Stack:** Laravel 12 (Backend) + Next.js 15 (Frontend) + PostgreSQL (Neon) / MySQL 8.0 + Multi-Provider AI + Docker (Redis)  
+> **Production:** On-Premise / Local Container  
 
 ---
 
@@ -10,16 +10,20 @@
 
 | Phase | Nama | Status | Progress |
 |-------|------|--------|----------|
-| **Phase 1** | Foundation & Infrastructure | ✅ Complete | █████████░ **95%** |
-| **Phase 2** | Core Compliance Modules | ✅ Complete | █████████░ **95%** |
-| **Phase 3** | Data & Privacy Modules | ✅ Complete | █████████░ **90%** |
-| **Phase 4** | Breach & Simulation | ✅ Complete | █████████░ **90%** |
-| **Phase 5** | AI Engine & Autofill | ✅ Complete | █████████░ **95%** |
-| **Phase 6** | Dashboard Risk Analytics | ✅ Complete | █████████░ **95%** |
-| **Phase 7** | Master Data & DPO Integration | ✅ Complete | █████████░ **95%** |
-| **Phase 8** | Consent Management Overhaul | ❌ Not Started | ░░░░░░░░░░ **0%** |
-| **Phase 9** | Data Discovery Enhancement | 🔧 Partial | ████░░░░░░ **40%** |
-| **Phase 10** | Deployment & DevOps | ❌ Not Started | ░░░░░░░░░░ **0%** |
+| **Phase 1** | Foundation & Infrastructure | ✅ Complete | ██████████ **100%** |
+| **Phase 2** | Core Compliance Modules | ✅ Complete | ██████████ **100%** |
+| **Phase 3** | Data & Privacy Modules | ✅ Complete | ██████████ **100%** |
+| **Phase 4** | Breach & Simulation | ✅ Complete | ██████████ **100%** |
+| **Phase 5** | AI Engine & Autofill | ✅ Complete | ██████████ **100%** |
+| **Phase 6** | Dashboard Risk Analytics | ✅ Complete | ██████████ **100%** |
+| **Phase 7** | Master Data & DPO Integration | ✅ Complete | ██████████ **100%** |
+| **Phase 8** | Consent Management Overhaul | ✅ Complete | ██████████ **100%** |
+| **Phase 9** | Data Discovery Enhancement | ✅ Complete | ██████████ **100%** |
+| **Phase 10** | Deployment & DevOps | ✅ Complete | ██████████ **100%** |
+| **Phase 11** | Breach Enhancement & Fire Drill | ✅ Complete | ██████████ **100%** |
+| **Phase 12** | Security & Performance | ✅ Complete | ██████████ **100%** |
+| **Phase 13** | Testing & Quality Assurance | ❌ Not Started | ░░░░░░░░░░ **0%** |
+| **Phase 14** | White-label & LMS | ❌ Not Started | ░░░░░░░░░░ **0%** |
 
 ---
 
@@ -309,18 +313,18 @@ Deployed di semua 10 modul:
 | AI Compliance Summary | ✅ | AI-generated summary button |
 | Export Compliance Report | ✅ | JSON export button |
 
-### 6.2 Yang Belum — Risk Detail Charts ❌
+### 6.2 Risk Detail Charts (Partial Selesai) 🔧
 
-| Task | Priority | Detail |
-|------|----------|--------|
-| **ROPA Risk Distribution Pie Chart** | 🔴 HIGH | Pie chart: berapa ROPA Low/Medium/High risk |
-| **ROPA Top 10 Highest Risk** | 🔴 HIGH | Table/card: 10 ROPA dengan risk tertinggi + division |
-| **DPIA 5×5 Risk Heatmap** | 🔴 HIGH | Heatmap matrix Likelihood vs Impact dari semua DPIA |
-| **DPIA Top Unmitigated Risks** | 🔴 HIGH | Card: Risk categories yang belum ada mitigation |
-| **Backend: Risk aggregation endpoint** | 🔴 HIGH | `GET /dashboard/risk-analytics` — aggregated risk data |
-| **DSR Response Time Chart** | 🟡 MED | Bar chart: avg response time per month |
-| **Breach Timeline Card** | 🟡 MED | Recent breach incidents with severity badge |
-| **Consent Adoption Rate** | 🟡 MED | Line chart: consent rate over time |
+| Task | Priority | Detail | Status |
+|------|----------|--------|--------|
+| **ROPA Risk Distribution Pie Chart** | 🔴 HIGH | Pie chart: berapa ROPA Low/Medium/High risk | ✅ Done |
+| **ROPA Top 10 Highest Risk** | 🔴 HIGH | Table/card: 10 ROPA dengan risk tertinggi + division | ❌ TODO |
+| **DPIA 5×5 Risk Heatmap** | 🔴 HIGH | Heatmap matrix Likelihood vs Impact dari semua DPIA | ✅ Done |
+| **DPIA Top Unmitigated Risks** | 🔴 HIGH | Card: Risk categories yang belum ada mitigation | ❌ TODO |
+| **Backend: Risk aggregation endpoint** | 🔴 HIGH | `GET /dashboard/risk-analytics` — aggregated risk data | ✅ Done |
+| **DSR Response Time Chart** | 🟡 MED | Bar chart: avg response time per month | ❌ TODO |
+| **Breach Timeline Card** | 🟡 MED | Recent breach incidents with severity badge | ❌ TODO |
+| **Consent Adoption Rate** | 🟡 MED | Line chart: consent rate over time | ❌ TODO |
 
 **Backend API baru yang dibutuhkan:**
 ```
@@ -387,7 +391,7 @@ Response:
 |------|--------|--------|
 | Dropdown: nama organisasi | ✅ Done | Dari context `user.organization.name` |
 | Dropdown: departemen | ✅ Done | Dari `departments` (tabel master) |
-| Export Excel template PIC DPIA | ❌ TODO | Template download → upload batch |
+| Export Excel template PIC DPIA | ✅ Done | Template download CSV di endpoint `/api/templates/dpia` |
 
 **Backend files baru:**
 ```
@@ -457,18 +461,18 @@ GET    /api/users?role=dpo      — Get DPO users for auto-fill
 | Channel tracking (CS, web, API) | ✅ Done | `channel` field already exists |
 
 ### 8.4 Consent Aggregation per User
-| Task | Priority | Detail |
-|------|----------|--------|
-| Aggregasi per `user_identifier` | ✅ Done | Dari semua collection points, user ini punya consent apa saja |
-| User consent profile page | 🟡 MED | Single view: semua consent per user |
-| Consent revocation flow | 🟡 MED | User bisa tarik consent per item |
+| Task | Priority | Detail | Status |
+|------|----------|--------|--------|
+| Aggregasi per `user_identifier` | 🔴 HIGH | Dari semua collection points, user ini punya consent apa saja | ✅ Done |
+| User consent profile page | 🟡 MED | Single view: semua consent per user | ✅ Done |
+| Consent revocation flow | 🟡 MED | User bisa tarik consent per item | ✅ Done |
 
 ### 8.5 CRM Integration Enhancement
-| Task | Priority | Detail |
-|------|----------|--------|
-| Odoo API connector (real) | 🟡 MED | Push consent records ke Odoo CRM |
-| Salesforce API connector | 🟢 LOW | Optional second CRM |
-| Webhook on consent change | 🟡 MED | Trigger webhook saat consent berubah |
+| Task | Priority | Detail | Status |
+|------|----------|--------|--------|
+| Odoo API connector (real) | 🟡 MED | Push consent records ke Odoo CRM | ❌ TODO |
+| Salesforce API connector | 🟢 LOW | Optional second CRM | ❌ TODO |
+| Webhook on consent change | 🟡 MED | Trigger webhook saat consent berubah | ✅ Done |
 
 **File baru/diubah:**
 ```
@@ -499,17 +503,17 @@ frontend/src/components/ConsentWidgetBuilder.tsx                   (NEW — WYSI
 | Retention days per column | ✅ |
 | Encryption required flag | ✅ |
 
-### 9.2 Yang Belum — Real Scanning Engine ❌
-| Task | Priority | Detail |
-|------|----------|--------|
-| **Database connector (real)** | 🔴 HIGH | MySQL/PostgreSQL/MongoDB actual connection via API |
-| **Schema introspection** | 🔴 HIGH | List tables → list columns → list sample data |
-| **PII auto-detection engine** | 🔴 HIGH | Regex + AI pattern matching (NIK, email, phone, NPWP, CC, nama, alamat) |
-| **File/folder scanner** | 🔴 HIGH | Scan CSV, Excel, JSON files untuk PII |
-| **Scan scheduling** | 🟡 MED | Periodic re-scan (weekly/monthly) |
-| **Scan result diff** | 🟡 MED | Compare scan results over time |
-| **Data Discovery → DSR integration** | 🔴 HIGH | Saat ada DSR request, cari data via Discovery |
-| **Data Discovery → ROPA auto-link** | ✅ Done | Sudah ada |
+### 9.2 Real Scanning Engine (Partial Selesai) 🔧
+| Task | Priority | Detail | Status |
+|------|----------|--------|--------|
+| **Database connector (real)** | 🔴 HIGH | MySQL/PostgreSQL/MongoDB actual connection via API | ✅ Done |
+| **Schema introspection** | 🔴 HIGH | List tables → list columns → list sample data | ✅ Done |
+| **PII auto-detection engine** | 🔴 HIGH | Regex + AI pattern matching (NIK, email, phone, CC) | ✅ Done |
+| **File/folder scanner** | 🔴 HIGH | Scan CSV, JSON files untuk PII | ✅ Done |
+| **Scan scheduling** | 🟡 MED | Periodic re-scan (weekly/monthly) | ❌ TODO |
+| **Scan result diff** | 🟡 MED | Compare scan results over time | ❌ TODO |
+| **Data Discovery → DSR integration** | 🔴 HIGH | Saat ada DSR request, cari data via Discovery | ❌ TODO |
+| **Data Discovery → ROPA auto-link** | 🔴 HIGH | Link hasil scan dengan ROPA | ✅ Done |
 
 > [!WARNING]
 > Real database scanning membutuhkan **on-premise agent** karena client DB biasanya tidak publicly accessible. Ini terkait erat dengan Phase 10 (Docker deployment).

@@ -53,21 +53,21 @@ html, body {
     align-items: center;
     padding: 60px 80px;
     opacity: 0;
-    transform: translateX(60px);
+    transform: translateX(60px) scale(0.85);
     transition: opacity 0.6s ease, transform 0.6s ease;
     pointer-events: none;
-    overflow-y: auto;
+    overflow: hidden; /* Hide scrollbars to avoid scale artifacts */
 }
 
 .slide.active {
     opacity: 1;
-    transform: translateX(0);
+    transform: translateX(0) scale(0.85);
     pointer-events: auto;
 }
 
 .slide.exit-left {
     opacity: 0;
-    transform: translateX(-60px);
+    transform: translateX(-60px) scale(0.85);
 }
 
 /* ========== NAVIGATION ========== */
@@ -682,6 +682,146 @@ html, body {
     </p>
 </div>
 
+<!-- ======================== SLIDE 2.1: THREAT CASE 1 ======================== -->
+<div class="slide">
+    <div class="hero-bg"></div>
+    <div class="slide-label animate-in">Threat Case #1</div>
+    <h1 class="slide-title animate-in" style="font-size: clamp(28px, 4vw, 56px);">
+        <span class="gradient-text-3">Source Code</span> Leaked
+    </h1>
+    <div class="two-col animate-in" style="margin-top: 40px;">
+        <div class="col" style="align-items: center;">
+            <div style="font-size: 80px; margin-bottom: 20px;">🛡️❓</div>
+            <h3 style="font-size: 24px; margin-bottom: 12px; font-weight: 800;">GitHub/Server Compromised</h3>
+            <p style="text-align: center; color: var(--text-muted); line-height: 1.6;">
+                Banyak kasus perusahaan mengalami kebocoran source code melalui GitHub, rogue employee, atau server vulnerability.
+            </p>
+        </div>
+        <div class="col">
+            <div class="g-card" style="background: rgba(239, 68, 68, 0.05); border-color: rgba(239, 68, 68, 0.2);">
+                <span class="card-icon">🚨</span>
+                <h3 class="card-title">Jika Tanpa Privasimu LMS:</h3>
+                <p class="card-desc">Code yang bocor langsung bisa di-deploy oleh kompetitor secara gratis tanpa batasan waktu penggunaannya.</p>
+            </div>
+            <div class="g-card" style="margin-top: 16px; background: rgba(16, 185, 129, 0.05); border-color: rgba(16, 185, 129, 0.2);">
+                <span class="card-icon">✅</span>
+                <h3 class="card-title">Dengan Privasimu LMS:</h3>
+                <p class="card-desc">Code yang bocor <strong>TIDAK BISA DIJALANKAN</strong> sama sekali karena tidak memiliki <em>Signed JWT License</em> yang valid. Mereka hanya dapat kode mati.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ======================== SLIDE 2.2: THREAT CASE 2 ======================== -->
+<div class="slide">
+    <div class="hero-bg"></div>
+    <div class="slide-label animate-in">Threat Case #2</div>
+    <h1 class="slide-title animate-in" style="font-size: clamp(28px, 4vw, 52px);">
+        <span class="gradient-text">AI Documentation</span> Cloning
+    </h1>
+    <div class="two-col animate-in" style="margin-top: 40px;">
+        <div class="col">
+            <div class="g-card">
+                <span class="card-icon">📄 ➔ 🤖</span>
+                <h3 class="card-title">Skenario Pembajakan Era AI</h3>
+                <p class="card-desc">Kompetitor/oknum mengumpulkan PDF dokumentasi, Pitch Deck, dan Buku Panduan produk Anda, lalu memberikannya sebagai <em>context prompt</em> kepada AI (DeepSeek/ChatGPT).</p>
+            </div>
+            <div class="g-card" style="margin-top: 16px;">
+                <span class="card-icon">⚒️</span>
+                <h3 class="card-title">Hasil: Clone Sempurna dalam Semalam</h3>
+                <p class="card-desc">AI mampu merekonstruksi ulang arsitektur, flow aplikasi, form, dan logika bisnis dengan akurasi tinggi hanya berdasarkan dokumentasi Anda.</p>
+            </div>
+        </div>
+        <div class="col" style="align-items: center; text-align: center;">
+            <p style="font-size: 18px; line-height: 1.6; color: var(--text-muted);">
+                Inovasi yang Anda bangun bertahun-tahun kini bisa <strong>diduplikasi dalam hitungan hari.</strong> Satu-satunya pembeda antara aplikasi Anda dan hasil <em>AI Clone</em> mereka adalah:<br><br>
+                <span style="font-size: 24px; font-weight: 800; color: #fff;">Otoritas Lisensi yang Mengunci Ekosistem!</span>
+            </p>
+        </div>
+    </div>
+</div>
+
+<!-- ======================== SLIDE 2.3: THREAT CASE 3 ======================== -->
+<div class="slide">
+    <div class="hero-bg"></div>
+    <div class="slide-label animate-in">Threat Case #3</div>
+    <h1 class="slide-title animate-in" style="font-size: clamp(28px, 4vw, 52px);">
+        Serangan <span class="gradient-text-2">"Computer Use"</span> Agent
+    </h1>
+    <div class="two-col animate-in" style="margin-top: 40px;">
+        <div class="col" style="align-items: center;">
+            <div style="font-size: 80px; margin-bottom: 20px;">🕵️‍♂️🤖</div>
+            <h3 style="font-size: 24px; margin-bottom: 12px; font-weight: 800;">Visual & Interaction Cloning</h3>
+            <p style="text-align: center; color: var(--text-muted); line-height: 1.6;">
+                Oknum berpura-pura menjadi kustomer aktif, memberikan credential login kepada AI Agent (seperti <em>Claude Computer Use</em>).
+            </p>
+        </div>
+        <div class="col">
+            <div class="g-card">
+                <span class="card-icon">🛑</span>
+                <h3 class="card-title">Mekanisme Pencurian Terbaru</h3>
+                <p class="card-desc">AI Agent akan login, menelusuri setiap menu, menganalisis respons network (API payload), mengambil screenshot UI, lalu mem-<em>bypass</em> proses development dengan me-<em>reverse engineer</em> frontend & backend Anda secara mandiri.</p>
+            </div>
+        </div>
+    </div>
+    <p class="slide-subtitle animate-in" style="margin-top: 40px; text-align: center; color: var(--warning); font-size: 18px;">
+        Anda tidak bisa menghentikan AI meniru UI/UX. <strong>Anda HANYA BISA mengontrol siapa yang berhak menjalankan <em>Core Engine</em> Anda melalui Lisensi Terpusat.</strong>
+    </p>
+</div>
+
+<!-- ======================== SLIDE 2.4: THREAT CASE 4 ======================== -->
+<div class="slide">
+    <div class="hero-bg"></div>
+    <div class="slide-label animate-in">Threat Case #4</div>
+    <h1 class="slide-title animate-in" style="font-size: clamp(28px, 4vw, 52px);">
+        Reselling: <span class="gradient-text-3">"Beli Putus"</span> Eksploitasi
+    </h1>
+    <div class="two-col animate-in" style="margin-top: 40px;">
+        <div class="col">
+            <div class="g-card" style="background: rgba(245, 158, 11, 0.05); border-color: rgba(245, 158, 11, 0.2);">
+                <span class="card-icon">💸</span>
+                <h3 class="card-title">Skema Ilegal Reseller Nakal</h3>
+                <p class="card-desc">Seseorang membeli paket "Beli Putus" (Enterprise). Mereka mendapat source code untuk di-deploy ke server mereka.</p>
+                <div style="height: 1px; background: rgba(255,255,255,0.1); margin: 12px 0;"></div>
+                <p class="card-desc" style="color: #f87171;">Kemudian mereka mulai meng-copy code tersebut ke <strong>100 VPS berbeda</strong> dan menjualnya secara eceran ke pembeli lain dengan harga murah.</p>
+            </div>
+        </div>
+        <div class="col">
+            <div class="g-card" style="background: rgba(16, 185, 129, 0.05); border-color: rgba(16, 185, 129, 0.2);">
+                <span class="card-icon">🔒</span>
+                <h3 class="card-title">Proteksi Max Activations</h3>
+                <p class="card-desc">Privasimu LMS secara spesifik memblokir skema ini. Meskipun "Beli Putus", license key memiliki <strong>Activation Quota (Contoh: Max 1 VPS)</strong>.</p>
+                <div style="height: 1px; background: rgba(255,255,255,0.1); margin: 12px 0;"></div>
+                <p class="card-desc" style="color: #34d399;">Jika dipasang di server ke-2, License Manager akan langsung <strong>menolak aktivasi</strong> dan memblokir instalasi ilegal tersebut.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ======================== SLIDE 2.5: KESIMPULAN THREAT ======================== -->
+<div class="slide">
+    <div class="hero-bg"></div>
+    <div class="slide-label animate-in">The New Era Paradigm</div>
+    <h1 class="slide-title animate-in" style="text-align: center; font-size: clamp(28px, 4vw, 48px);">
+        <span class="gradient-text">Software Bukan Lagi "Benda Rahasia"</span><br>
+        Lisensilah yang Menentukan Kepemilikan.
+    </h1>
+    <div class="card-grid card-grid-3 animate-in" style="margin-top: 40px;">
+        <div class="g-card text-center">
+            <span class="card-icon">1</span>
+            <p class="card-desc">UI/UX & Flow = Akan selalu bisa ditiru AI 100%.</p>
+        </div>
+        <div class="g-card text-center">
+            <span class="card-icon">2</span>
+            <p class="card-desc">Source Code = Rawat dari kebocoran cloud/server.</p>
+        </div>
+        <div class="g-card text-center" style="background: rgba(99, 102, 241, 0.08); border-color: rgba(99, 102, 241, 0.3);">
+            <span class="card-icon">3</span>
+            <p class="card-desc" style="color: #fff; font-weight: 700;">License = Pertahanan Absolute Terakhir Bisnis Anda.</p>
+        </div>
+    </div>
+</div>
+
 <!-- ======================== SLIDE 3: SOLUSI ======================== -->
 <div class="slide" data-slide="2">
     <div class="hero-bg"></div>
@@ -1242,6 +1382,539 @@ html, body {
         <p style="font-size: 12px; color: var(--text-muted); margin-top: 12px;">
             info@privasimu.id &nbsp;•&nbsp; privasimu.sainskerta.net
         </p>
+    </div>
+</div>
+
+<!-- ======================== SLIDE EX 1: QNA ======================== -->
+<div class="slide">
+    <div class="hero-bg"></div>
+    <div class="slide-label animate-in">Sesi Interaktif</div>
+    <h1 class="slide-title animate-in" style="font-size: clamp(32px, 5vw, 64px); text-align: center;">
+        <span class="gradient-text-2">Q & A</span>
+    </h1>
+    <p class="slide-subtitle animate-in" style="text-align: center; font-size: 20px; font-weight: 300;">
+        Ada pertanyaan seputar Arsitektur, Lisensi, atau Integrasi AI?
+    </p>
+</div>
+
+<!-- ======================== SLIDE EX 2: BONUS COVER ======================== -->
+<div class="slide">
+    <div class="hero-bg"></div>
+    <div class="slide-label animate-in">Bonus Materi Webminar</div>
+    <h1 class="slide-title animate-in" style="font-size: clamp(28px, 4vw, 48px); text-align: center;">
+        <span class="gradient-text-3">Development Tips</span> & Fitur Rahasia
+    </h1>
+    <p class="slide-subtitle animate-in" style="text-align: center;">
+        Intip di balik layar arsitektur modern Privasimu untuk DevOps dan AI Engineering.
+    </p>
+</div>
+
+<!-- ======================== SLIDE EX 3: TERMINAL UI ======================== -->
+<div class="slide">
+    <div class="hero-bg"></div>
+    <div class="slide-label animate-in">DevOps Automation</div>
+    <h1 class="slide-title animate-in" style="font-size: clamp(28px, 4vw, 52px);">
+        Built-in <span class="gradient-text">Superadmin Terminal</span>
+    </h1>
+    <div class="two-col animate-in" style="margin-top: 40px;">
+        <div class="col">
+            <div class="g-card" style="background: rgba(15, 10, 30, 0.8); border: 1px solid rgba(255,255,255,0.1);">
+                <div style="font-family: monospace; font-size: 13px; color: #a78bfa; margin-bottom: 8px;">user@privasimu:~$</div>
+                <div style="font-family: monospace; font-size: 12px; color: #fff; line-height: 1.5;">
+                    <span style="color: #34d399;">✔ git pull origin main</span><br>
+                    <span style="color: #34d399;">✔ php artisan migrate</span><br>
+                    <span style="color: #34d399;">✔ npm run build</span>
+                </div>
+            </div>
+            <p class="card-desc" style="margin-top: 16px;">
+                Semua perintah <strong>Deploy, Update, dan Rollback / Checkout Version</strong> bisa dijalankan langsung dari Dashboard Superadmin via UI (menggunakan `shell_exec` yang aman).
+            </p>
+        </div>
+        <div class="col">
+            <div class="g-card">
+                <span class="card-icon">⚡</span>
+                <h3 class="card-title">Mengapa Ini Penting?</h3>
+                <ul class="feature-list" style="margin-top: 12px;">
+                    <li><span class="check">✓</span> <strong>Tanpa SSH Access:</strong> Mengelola server tidak butuh sharing key SSH ke banyak tim.</li>
+                    <li><span class="check">✓</span> <strong>Auto Update:</strong> 1-klik update memicu command Git Pull & Migrate otomatis.</li>
+                    <li><span class="check">✓</span> <strong>Disaster Recovery:</strong> Bisa rollback ke previous git commit lansung dari Web UI.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ======================== SLIDE EX 4: AI ERROR ANALYST ======================== -->
+<div class="slide">
+    <div class="hero-bg"></div>
+    <div class="slide-label animate-in">AI Engineering</div>
+    <h1 class="slide-title animate-in" style="font-size: clamp(28px, 4vw, 52px);">
+        Automated <span class="gradient-text-3">AI Error Analyst</span>
+    </h1>
+    <div class="two-col animate-in" style="margin-top: 40px;">
+        <div class="col" style="align-items: center;">
+            <div style="font-size: 80px; margin-bottom: 20px;">🚑🤖</div>
+            <h3 style="font-size: 24px; margin-bottom: 12px; font-weight: 800;">Zero-Debugging Time</h3>
+            <p style="text-align: center; color: var(--text-muted); line-height: 1.6;">
+                Setiap kali ada server error / unhandled exception, log tersebut otomatis dikirim ke AI.
+            </p>
+        </div>
+        <div class="col">
+            <div class="g-card" style="background: rgba(239, 68, 68, 0.05); border-color: rgba(239, 68, 68, 0.2);">
+                <span class="card-icon">⚡</span>
+                <h3 class="card-title">Bagaimana Cara Kerjanya?</h3>
+                <p class="card-desc">Sistem menangkap stack trace error, lalu AI akan merangkum: <strong>"Bugnya ada di file A baris ke-X. Anda lupa menambahkan null check pada variabel Y. Ini block kode perbaikannya."</strong></p>
+                <div style="height: 1px; background: rgba(255,255,255,0.1); margin: 12px 0;"></div>
+                <p class="card-desc" style="color: #fca5a5;">Developer <strong>TIDAK PERLU</strong> lagi buang waktu baca log ribet atau scroll StackOverflow. Bug beres dalam hitungan detik!</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ======================== SLIDE EX 5: AI PROVIDER LIST ======================== -->
+<div class="slide">
+    <div class="hero-bg"></div>
+    <div class="slide-label animate-in">AI Ecosystem</div>
+    <h1 class="slide-title animate-in" style="font-size: clamp(28px, 4vw, 52px);">
+        Multi-Provider <span class="gradient-text-2">Orchestration</span>
+    </h1>
+    <p class="slide-subtitle animate-in" style="text-align: center; margin-bottom: 30px;">
+        Jangan bergantung pada satu LLM. Gunakan arsitektur provider yang dinamis dan fleksibel.
+    </p>
+    <div class="card-grid card-grid-3 animate-in">
+        <div class="g-card text-center" style="background: rgba(255, 255, 255, 0.02)">
+            <span class="card-icon" style="font-size: 40px; color: #10a37f;">●</span>
+            <h3 class="card-title">OpenAI (GPT-4o)</h3>
+            <p class="card-desc">Cerdas, andal untuk task kompleks, klasifikasi, dan pemahaman reasoning mendalam.</p>
+        </div>
+        <div class="g-card text-center" style="background: rgba(255, 255, 255, 0.02)">
+            <span class="card-icon" style="font-size: 40px; color: #4285F4;">✦</span>
+            <h3 class="card-title">Gemini (Pro/Flash)</h3>
+            <p class="card-desc">Cocok untuk speed, context window raksasa (jutaan token dokumen), dan image vision.</p>
+        </div>
+        <div class="g-card text-center" style="background: rgba(255, 255, 255, 0.02)">
+            <span class="card-icon" style="font-size: 40px; color: #60a5fa;">🐋</span>
+            <h3 class="card-title">DeepSeek (V3/R1)</h3>
+            <p class="card-desc">Open-weight, sangat efisien (harga super murah) namun luar biasa akurat untuk pure coding & JSON parsing.</p>
+        </div>
+    </div>
+</div>
+
+<!-- ======================== SLIDE EX 6.1: JSON OUTPUT ======================== -->
+<div class="slide">
+    <div class="hero-bg"></div>
+    <div class="slide-label animate-in">Advanced LLM Technique</div>
+    <h1 class="slide-title animate-in" style="font-size: clamp(28px, 4vw, 52px);">
+        <span class="gradient-text">Structured JSON</span> & Parsing
+    </h1>
+    <div class="two-col animate-in" style="margin-top: 40px;">
+        <div class="col" style="align-items: center;">
+            <p style="text-align: center; color: var(--text-muted); font-size: 16px; line-height: 1.6;">
+                Minta AI jangan merespons dengan teks naratif "Halo, berikut datanya...", tapi wajib merespons dalam format <b>Pure JSON Object</b>.
+            </p>
+            <div class="g-card" style="width: 100%; margin-top: 16px;">
+                <div style="font-family: monospace; font-size: 13px; color: #a78bfa; margin-bottom: 8px;">Response AI:</div>
+                <div style="font-family: monospace; font-size: 12px; color: #fff; line-height: 1.5; white-space: pre;">{
+  "score": 85,
+  "risks": ["Data Leak", "XSS"],
+  "action": "block"
+}</div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="g-card">
+                <span class="card-icon">🧩</span>
+                <h3 class="card-title">Mengapa Harus JSON?</h3>
+                <p class="card-desc">JSON adalah bahasa yang dipahami oleh Backend & Frontend. Ketika AI mengeluarkan JSON, output tersebut langsung bisa diolah oleh code kita (`JSON.parse()`) tanpa perlu dibaca oleh manusia terlebih dahulu.</p>
+                <div style="height: 1px; background: rgba(255,255,255,0.1); margin: 12px 0;"></div>
+                <p class="card-desc" style="color: #34d399;">Ini adalah kunci untuk "Menyematkan Kepintaran" ke dalam komponen aplikasi, mengubah <em>Generative AI</em> menjadi <em>Deterministic AI</em>!</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ======================== SLIDE EX 6.2: CASE 1 ======================== -->
+<div class="slide">
+    <div class="hero-bg"></div>
+    <div class="slide-label animate-in">JSON Capability: Case 1</div>
+    <h1 class="slide-title animate-in" style="font-size: clamp(28px, 4vw, 48px);">
+        Messy Input ➔ <span class="gradient-text-2">Relational Clean Data</span>
+    </h1>
+    <div class="two-col animate-in" style="margin-top: 40px;">
+        <div class="col">
+            <div class="g-card" style="background: rgba(245, 158, 11, 0.05); border-color: rgba(245, 158, 11, 0.2);">
+                <div style="font-size: 13px; color: var(--warning); margin-bottom: 8px; font-weight: 700;">Input Manusia (Voice/Text):</div>
+                <p style="font-size: 14px; font-style: italic; line-height: 1.6; color: #fff;">
+                    "Mas tolong ya catet komplain pelanggan namanya Pak Budi, dia bilang data rekeningnya bocor kemarin gara-gara klik phishing. Katanya dia mau nuntut ganti rugi 50 juta."
+                </p>
+            </div>
+        </div>
+        <div class="col">
+            <div class="g-card" style="background: rgba(16, 185, 129, 0.05); border-color: rgba(16, 185, 129, 0.2);">
+                <div style="font-size: 13px; color: var(--success); margin-bottom: 8px; font-weight: 700;">Parsed DB Array:</div>
+                <div style="font-family: monospace; font-size: 11px; color: #fff; line-height: 1.5; white-space: pre; overflow-x: auto;">{
+  "tiket": "DSR-INC",
+  "pelapor": "Budi",
+  "kategori": "Breach: Phishing",
+  "dampak": "Rekening Bocor",
+  "tuntutan_finansial": 50000000,
+  "action_required": "Investigasi"
+}</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ======================== SLIDE EX 6.3: CASE 2 ======================== -->
+<div class="slide">
+    <div class="hero-bg"></div>
+    <div class="slide-label animate-in">JSON Capability: Case 2</div>
+    <h1 class="slide-title animate-in" style="font-size: clamp(28px, 4vw, 48px);">
+        Intelligent <span class="gradient-text-3">Form Auto-Fill</span>
+    </h1>
+    <div class="full-width animate-in" style="margin-top: 30px;">
+        <div class="card-grid card-grid-3">
+            <div class="g-card text-center" style="border-style: dashed;">
+                <span class="card-icon">📄</span>
+                <h3 class="card-title">1. Upload PDF</h3>
+                <p class="card-desc">User upload Kebijakan Privasi berlembar-lembar. Teks diekstrak mentah (OCR).</p>
+            </div>
+            <div class="g-card text-center" style="background: rgba(99, 102, 241, 0.05);">
+                <span class="card-icon">🧠</span>
+                <h3 class="card-title">2. AI Extraction</h3>
+                <p class="card-desc">AI menganalisa dan me-map informasi ke dalam Schema JSON (Nama PT, Alamat, Retention Period, Pihak ke-3).</p>
+            </div>
+            <div class="g-card text-center" style="background: rgba(16, 185, 129, 0.05); border-color: rgba(16, 185, 129, 0.3);">
+                <span class="card-icon">✨</span>
+                <h3 class="card-title">3. Instant UI Fill</h3>
+                <p class="card-desc">Frontend meloop keys JSON, langsung mengisi 30+ Field Input tanpa user menekan tombol keyboard satu pun!</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ======================== SLIDE EX 6.4: CASE 3 ======================== -->
+<div class="slide">
+    <div class="hero-bg"></div>
+    <div class="slide-label animate-in">JSON Capability: Case 3</div>
+    <h1 class="slide-title animate-in" style="font-size: clamp(28px, 4vw, 48px);">
+        Generative UI (<span class="gradient-text">GenUI</span>)
+    </h1>
+    <div class="two-col animate-in" style="margin-top: 40px;">
+        <div class="col">
+            <div class="g-card">
+                <span class="card-icon">🖥️</span>
+                <h3 class="card-title">Frontend yang Didekte AI</h3>
+                <p class="card-desc">Kamu bisa menyuruh AI untuk mengembalikan tipe UI apa yang cocok sesuai hasil analisanya.</p>
+                <div style="font-family: monospace; font-size: 11px; background: rgba(0,0,0,0.5); padding: 10px; margin-top: 12px; border-radius: 6px;">
+                    { "uiTarget": "BarChart",<br>
+                      "labels": ["Senin", "Selasa"],<br>
+                      "data": [12, 19] }
+                </div>
+            </div>
+        </div>
+        <div class="col" style="display: flex; flex-direction: column; justify-content: center;">
+            <p style="font-size: 16px; line-height: 1.6; color: var(--text-muted); text-align: center;">
+                React/Vue tinggal membaca field <code>uiTarget</code> lalu merender <code>&lt;BarChart /&gt;</code> secara dinamis!<br><br>
+                <span style="color: #60a5fa; font-weight: 700;">Hasilnya? Dashboard interaktif yang laykout dan chart-nya berubah-ubah secerdas jawaban AI, tanpa hardcode.</span>
+            </p>
+        </div>
+    </div>
+</div>
+
+<!-- ======================== SLIDE EX 6.5: CASE 4 ======================== -->
+<div class="slide">
+    <div class="hero-bg"></div>
+    <div class="slide-label animate-in">JSON Capability: Case 4</div>
+    <h1 class="slide-title animate-in" style="font-size: clamp(28px, 4vw, 48px);">
+        <span class="gradient-text-3">Machine-to-Machine</span> (No Chatbot)
+    </h1>
+    <div class="two-col animate-in" style="margin-top: 40px;">
+        <div class="col" style="align-items: center;">
+            <div style="font-size: 80px; margin-bottom: 20px;">⚙️🤖⚙️</div>
+            <h3 style="font-size: 24px; margin-bottom: 12px; font-weight: 800;">Bypassing Human UI</h3>
+            <p style="text-align: center; color: var(--text-muted); line-height: 1.6;">
+                Eksekusi sistem terjadi sunyi di belakang layar. Menjadikan AI sebagai "Controller / Middleware", bukan Assistant Chat.
+            </p>
+        </div>
+        <div class="col">
+            <div class="g-card" style="background: rgba(239, 68, 68, 0.05); border-color: rgba(239, 68, 68, 0.2);">
+                <span class="card-icon">🚨</span>
+                <h3 class="card-title">Contoh Kasus: Auto Firewall</h3>
+                <p class="card-desc">Log trafik mencurigakan → dikirim ke API DeepSeek JSON → DeepSeek jawab <code>{"action": "BAN_IP", "reason": "DDoS"}</code>.</p>
+                <div style="height: 1px; background: rgba(255,255,255,0.1); margin: 12px 0;"></div>
+                <p class="card-desc" style="color: #fca5a5;">Middleware Node.js membaca JSON tersebut, langsung men-trigger script AWS WAF untuk blokir IP. <strong>Semua terjadi secara otomoatis (0 human interaction).</strong></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ======================== SLIDE EX 7: AI AGENTS ======================== -->
+<div class="slide">
+    <div class="hero-bg"></div>
+    <div class="slide-label animate-in">The Future</div>
+    <h1 class="slide-title animate-in" style="font-size: clamp(32px, 4.5vw, 60px); text-align: center;">
+        <span class="gradient-text-3">Autonomous AI Agents</span>
+    </h1>
+    <p class="slide-subtitle animate-in" style="text-align: center; max-width: 800px; margin: 0 auto 40px;">
+        AI bukan lagi sekadar chatbot penjawab, melainkan <strong>pekerja otonom</strong> yang bisa menggunakan "Tools" dan melakukan aksi langsung di sistem web Anda.
+    </p>
+    <div class="card-grid card-grid-3 animate-in">
+        <div class="g-card text-center" style="border-color: rgba(6, 182, 212, 0.3);">
+            <span class="card-icon">🧠</span>
+            <h3 class="card-title">Thought (Berpikir)</h3>
+            <p class="card-desc">AI menganalisa tugas complex, merencanakan langkah demi langkah (CoT - Chain of Thought).</p>
+        </div>
+        <div class="g-card text-center" style="border-color: rgba(99, 102, 241, 0.3);">
+            <span class="card-icon">⚒️</span>
+            <h3 class="card-title">Tool Calling (Aksi)</h3>
+            <p class="card-desc">AI memanggil function backend sungguhan. Contoh: <code>deleteUser({id:12})</code> atau <code>searchDatabase()</code>.</p>
+        </div>
+        <div class="g-card text-center" style="border-color: rgba(16, 185, 129, 0.3);">
+            <span class="card-icon">🔄</span>
+            <h3 class="card-title">Observation (Iterasi)</h3>
+            <p class="card-desc">AI membaca hasil eksekusi (sukses/error), lalu memikirkan langkah selanjutnya sampai gol tercapai.</p>
+        </div>
+    </div>
+</div>
+
+<!-- ======================== SLIDE EX 8: SKILL MD ======================== -->
+<div class="slide">
+    <div class="hero-bg"></div>
+    <div class="slide-label animate-in">Supercharging AI Coding Agents</div>
+    <h1 class="slide-title animate-in" style="font-size: clamp(28px, 4vw, 52px);">
+        Sistem <span class="gradient-text-2">Skill.md</span> untuk Agent
+    </h1>
+    <div class="two-col animate-in" style="margin-top: 40px;">
+        <div class="col" style="align-items: center;">
+            <div style="font-size: 80px; margin-bottom: 20px;">📂🤖</div>
+            <h3 style="font-size: 24px; margin-bottom: 12px; font-weight: 800;">Standard Operating Procedures</h3>
+            <p style="text-align: center; color: var(--text-muted); line-height: 1.6;">
+                Jadikan AI Coding Agent Anda seperti programmer senior yang sudah paham betul standar perusahaan Anda.
+            </p>
+        </div>
+        <div class="col">
+            <div class="g-card" style="background: rgba(99, 102, 241, 0.05); border-color: rgba(99, 102, 241, 0.2);">
+                <span class="card-icon">🎯</span>
+                <h3 class="card-title">Kenapa Butuh Skill.md?</h3>
+                <p class="card-desc">Cukup buat file-file panduan spesifik (contoh: <code>api-guidelines.md</code>) di dalam folder project repository Anda.</p>
+                <div style="height: 1px; background: rgba(255,255,255,0.1); margin: 12px 0;"></div>
+                <p class="card-desc" style="color: #a78bfa;">Setiap kali Anda menugaskan AI untuk ngoding, AI akan membaca file rule tersebut. Secara otomatis, AI akan memakai library yang benar, mematuhi UI standard, dan mengikuti Naming Convention TANPA Anda harus menulis prompt panjang setiap saat.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ======================== SLIDE P1: PROMPT 1 ======================== -->
+<div class="slide">
+    <div class="hero-bg"></div>
+    <div class="slide-label animate-in">Secret Prompt #1</div>
+    <h1 class="slide-title animate-in" style="font-size: clamp(28px, 4vw, 52px);">
+        <span class="gradient-text">Arsitektur & System Design</span>
+    </h1>
+    <div class="full-width animate-in" style="margin-top: 30px;">
+        <div class="g-card">
+            <span class="card-icon">🏗️</span>
+            <h3 class="card-title">Jangan minta "Buatkan fungsi X". Mintalah "Rancang Arsitektur X".</h3>
+            <div style="font-family: monospace; color: #60a5fa; font-size: 14px; line-height: 1.6; padding: 16px; background: rgba(0,0,0,0.3); border-radius: 8px; margin-top: 12px;">
+                "Saya ingin membangun fitur Multi-Tenant Billing. Bertindaklah sebagai Software Architect Senior. Sebelum menulis kode apapun, analisa requirement ini, lalu berikan 3 alternatif arsitektur database lengkap dengan kelebihan, kekurangan, dan risiko skalabilitas tiap opsi. Setelah kita memilih satu opsi, baru kita mulai coding."
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ======================== SLIDE P2: PROMPT 2 ======================== -->
+<div class="slide">
+    <div class="hero-bg"></div>
+    <div class="slide-label animate-in">Secret Prompt #2</div>
+    <h1 class="slide-title animate-in" style="font-size: clamp(28px, 4vw, 52px);">
+        <span class="gradient-text-2">UX Simplification</span> (Anti-CRUD)
+    </h1>
+    <div class="full-width animate-in" style="margin-top: 30px;">
+        <div class="g-card" style="border-color: rgba(245, 158, 11, 0.3);">
+            <span class="card-icon">✨</span>
+            <h3 class="card-title">Kurangi Beban Input User</h3>
+            <div style="font-family: monospace; color: #facc15; font-size: 14px; line-height: 1.6; padding: 16px; background: rgba(0,0,0,0.3); border-radius: 8px; margin-top: 12px;">
+                "User kita mengeluh form input ini terlalu banyak isian (15 kolom). Analisa model DB dan Flow ini. Identifikasi field mana saja yang bisa saya automasi, inferensi (ditebak), atau diambil dari context/tabel sekitarnya. Refactor controller & frontend ini agar form hanya menyisakan maksimal 4 field esensial, tanpa merusak integrity Foreign Key di belakang layar."
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ======================== SLIDE P3: PROMPT 3 ======================== -->
+<div class="slide">
+    <div class="hero-bg"></div>
+    <div class="slide-label animate-in">Secret Prompt #3</div>
+    <h1 class="slide-title animate-in" style="font-size: clamp(28px, 4vw, 52px);">
+        Hacker & <span class="gradient-text-3">Security QA</span> Mindset
+    </h1>
+    <div class="full-width animate-in" style="margin-top: 30px;">
+        <div class="g-card" style="border-color: rgba(239, 68, 68, 0.3);">
+            <span class="card-icon">🏴‍☠️</span>
+            <h3 class="card-title">Uji Kerentanan Logic Sebelum Masuk Production</h3>
+            <div style="font-family: monospace; color: #fca5a5; font-size: 14px; line-height: 1.6; padding: 16px; background: rgba(0,0,0,0.3); border-radius: 8px; margin-top: 12px;">
+                "Review endpoint API Payment ini dengan mindset seorang Hacker Penetration Tester. Uji secara logis kemungkinan adanya Race Condition (jika user nge-klik submit 2x berbarengan), bypass manipulasi harga via Inspect Element, atau celah Mass Assignment. Tunjukkan mana yang rentan, lalu sediakan patch kodenya secara bullet-proof."
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ======================== SLIDE P4: PROMPT 4 ======================== -->
+<div class="slide">
+    <div class="hero-bg"></div>
+    <div class="slide-label animate-in">Secret Prompt #4</div>
+    <h1 class="slide-title animate-in" style="font-size: clamp(28px, 4vw, 52px);">
+        Enforcing <span class="gradient-text">Multi-Tenant Boundary</span>
+    </h1>
+    <div class="full-width animate-in" style="margin-top: 30px;">
+        <div class="g-card">
+            <span class="card-icon">🏢</span>
+            <h3 class="card-title">Cegah Kebocoran Data Antar Perusahaan Organisasi</h3>
+            <div style="font-family: monospace; color: #34d399; font-size: 14px; line-height: 1.6; padding: 16px; background: rgba(0,0,0,0.3); border-radius: 8px; margin-top: 12px;">
+                "Ini adalah aplikasi SaaS berskala Nasional. Audit semua Middleware, ORM Models, dan endpoint Controller yang baru saya buat. Pastikan TIDAK ADA SATUPUN query yang lupa melakukan filter 'where tenant_id'. Jika perlu, implementasikan Global Scope atau traits otomatis agar proses query selalu terkunci pada tenant user yang sedang login."
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ======================== SLIDE P5: PROMPT 5 ======================== -->
+<div class="slide">
+    <div class="hero-bg"></div>
+    <div class="slide-label animate-in">Secret Prompt #5</div>
+    <h1 class="slide-title animate-in" style="font-size: clamp(28px, 4vw, 52px);">
+        Prompting untuk <span class="gradient-text-2">JSON Parsing</span>
+    </h1>
+    <div class="full-width animate-in" style="margin-top: 30px;">
+        <div class="g-card">
+            <span class="card-icon">🧩</span>
+            <h3 class="card-title">Format Wajib untuk Deterministic AI</h3>
+            <div style="font-family: monospace; color: #c084fc; font-size: 14px; line-height: 1.6; padding: 16px; background: rgba(0,0,0,0.3); border-radius: 8px; margin-top: 12px;">
+                "Tugasmu adalah menganalisa teks dokumen legal ini. Kamu TIDAK BOLEH merespons dengan kalimat narasi sapaan atau penjelasan ekstra. Keluarkan output HANYA dalam bentuk Raw JSON Array yang memvalidasi strict JSON Format, berisi: [{nama_pasal, persentase_risiko, langkah_mitigasi}]. Jika tidak ada risiko, kembalikan array kosong []."
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ======================== SLIDE P6: PROMPT 6 ======================== -->
+<div class="slide">
+    <div class="hero-bg"></div>
+    <div class="slide-label animate-in">Secret Prompt #6</div>
+    <h1 class="slide-title animate-in" style="font-size: clamp(28px, 4vw, 52px);">
+        Performa DB & <span class="gradient-text">N+1 Queries</span>
+    </h1>
+    <div class="full-width animate-in" style="margin-top: 30px;">
+        <div class="g-card">
+            <span class="card-icon">⚡</span>
+            <h3 class="card-title">Optimasi Kecepatan Eksekusi Big Data</h3>
+            <div style="font-family: monospace; color: #60a5fa; font-size: 14px; line-height: 1.6; padding: 16px; background: rgba(0,0,0,0.3); border-radius: 8px; margin-top: 12px;">
+                "Tabel 'Audits' ini akan menyimpan jutaan baris data per bulan. Tolong evaluasi Eloquent Query ini. Cari tahu apakah ada masalah 'N+1 Query problem' di view-nya. Selanjutnya, bantu saya membuat Database Migration untuk menambahkan Composite Index yang tepat berdasarkan kolom filter yang paling sering dipanggil di dashboard."
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ======================== SLIDE P7: PROMPT 7 ======================== -->
+<div class="slide">
+    <div class="hero-bg"></div>
+    <div class="slide-label animate-in">Secret Prompt #7</div>
+    <h1 class="slide-title animate-in" style="font-size: clamp(28px, 4vw, 52px);">
+        Menulis <span class="gradient-text-3">AI Agent Tools</span>
+    </h1>
+    <div class="full-width animate-in" style="margin-top: 30px;">
+        <div class="g-card">
+            <span class="card-icon">🛠️</span>
+            <h3 class="card-title">Membekali AI dengan Alat Bekerja Sesungguhnya</h3>
+            <div style="font-family: monospace; color: #fca5a5; font-size: 14px; line-height: 1.6; padding: 16px; background: rgba(0,0,0,0.3); border-radius: 8px; margin-top: 12px;">
+                "Saya sedang merakit Autonomous Agent LLM. Tolong buatkan Node.js function 'refundTransaction(id)'. Ekspor fungsi tersebut beserta JSON Schema Validator lengkap yang mendeskripsikan tujuan fungsi ini, tipe data per parameter, dan error handling-nya, agar struktur tool ini siap di-binding dan dipanggil secara otomatis oleh framework OpenAI Function Calling."
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ======================== SLIDE P8: PROMPT 8 ======================== -->
+<div class="slide">
+    <div class="hero-bg"></div>
+    <div class="slide-label animate-in">Secret Prompt #8</div>
+    <h1 class="slide-title animate-in" style="font-size: clamp(28px, 4vw, 52px);">
+        Zero-Debugging <span class="gradient-text-2">Error Log Analyst</span>
+    </h1>
+    <div class="full-width animate-in" style="margin-top: 30px;">
+        <div class="g-card">
+            <span class="card-icon">🚑</span>
+            <h3 class="card-title">Berhenti Mencari Penyakit di StackOverflow</h3>
+            <div style="font-family: monospace; color: #facc15; font-size: 14px; line-height: 1.6; padding: 16px; background: rgba(0,0,0,0.3); border-radius: 8px; margin-top: 12px;">
+                "Ini adalah error Stack Trace yang baru saja terjadi di server Production saya saat user menekan submit: [PASTE_ERROR_LOG_DI_SINI]. Tolong analisa flow errornya, jangan ubah fungsionalitas aslinya. Tunjukkan tepatnya di line berapa letak permasalahannya, kenapa itu terjadi, dan tuliskan perbaikan codenya langsung agar proses errornya teratasi."
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ======================== SLIDE P9: PROMPT 9 ======================== -->
+<div class="slide">
+    <div class="hero-bg"></div>
+    <div class="slide-label animate-in">Secret Prompt #9</div>
+    <h1 class="slide-title animate-in" style="font-size: clamp(28px, 4vw, 52px);">
+        Standardisasi <span class="gradient-text">Skill.md / AI Rules</span>
+    </h1>
+    <div class="full-width animate-in" style="margin-top: 30px;">
+        <div class="g-card">
+            <span class="card-icon">📖</span>
+            <h3 class="card-title">Bikin AI Kerja Mengikuti Standard Perusahaan</h3>
+            <div style="font-family: monospace; color: #34d399; font-size: 14px; line-height: 1.6; padding: 16px; background: rgba(0,0,0,0.3); border-radius: 8px; margin-top: 12px;">
+                "Tolong analisa seluruh kodenya pada repository ini. Berdasarkan cara kami membuat Controller, mendesain UI dengan standard class CSS (misalnya bg-dark-surface, text-muted), dan cara kami menangani Exception. Buatkan 1 file Markdown 'skill.md' komprehensif berisi semua rule dan naming convention ini. File ini akan saya letakkan di root agar setiap kali AI Agent nge-coding di project ini, AI langsung paham style pattern lokal kami."
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ======================== SLIDE P10: THE ULTIMATE PROMPT ======================== -->
+<div class="slide">
+    <div class="hero-bg"></div>
+    <div class="slide-label animate-in">The Grand Finale</div>
+    <h1 class="slide-title animate-in" style="font-size: clamp(28px, 4vw, 52px);">
+        Prompt <span class="gradient-text-3">"Omni-Dev" God Mode</span>
+    </h1>
+    <div class="full-width animate-in" style="margin-top: 30px;">
+        <div class="g-card" style="border-color: rgba(6, 182, 212, 0.4); background: rgba(15, 10, 30, 0.9);">
+            <div style="font-size: 40px; text-align: center; margin-bottom: 8px;">👑</div>
+            <h3 class="card-title" style="text-align: center; color: var(--text);">Ultimate "Blueprint" Prompt</h3>
+            <p style="text-align: center; font-size: 13px; color: var(--text-muted); margin-bottom: 20px;">Gunakan template ini saat memulai fitur super kompleks. Ini akan menyulap AI (ChatGPT/DeepSeek) menjadi CTO pribadi Anda.</p>
+            <div style="font-family: monospace; color: #fff; font-size: 13px; line-height: 1.7; padding: 24px; background: rgba(0,0,0,0.6); border-radius: 8px; border-left: 4px solid #06b6d4;">
+                <span style="color: #60a5fa;">"Bertindaklah sebagai Staff Engineer (10x Developer) expert di Modern Stack.</span> Tugasmu membangun ekosistem fitur <b>[MASUKKAN_FITUR_KAMU]</b>.<br><br>
+                <span style="color: #facc15;">Aturan Main (Constraints):</span><br>
+                1. Terapkan SOLID, Early Return, dan STRICT Type Hinting.<br>
+                2. Wajib anti-Race-Condition dan 100% kebal N+1 Database Queries.<br>
+                3. Jangan langsung menulis source code! Lakukan tahapan (CoT) berikut:<br><br>
+                <span style="color: #34d399;">Tahap Eksekusi:</span><br>
+                <span style="color: #a78bfa;">Step 1:</span> Buat satu paragraf <em>Technical Design Document</em> berisi rancangan Skema DB, Background Queue, dan Edge Case failure flow.<br>
+                <span style="color: #a78bfa;">Step 2:</span> Tunggu persetujuan saya atas arsitektur tersebut.<br>
+                <span style="color: #a78bfa;">Step 3:</span> Jika saya bilang 'Lanjut', barulah keluarkan kodenya secara bertahap mulai dari Migration, Backend, hingga UI Component agar token tidak terpotong.<br><br>
+                <span style="color: #60a5fa;">Mengerti? Silakan mulai Step 1 sekarang."</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ======================== SLIDE 40: THANK YOU ======================== -->
+<div class="slide" data-slide="end">
+    <div class="hero-bg"></div>
+    <div class="hero-glow" style="background: var(--primary); top: 50%; left: 50%; transform: translate(-50%, -50%); width: 600px; height: 600px; opacity: 0.1;"></div>
+    
+    <div class="slide-label animate-in">Terima Kasih</div>
+    <h1 class="slide-title animate-in" style="font-size: clamp(48px, 6vw, 80px); text-align: center; margin-bottom: 24px;">
+        <span class="gradient-text">Terima Kasih!</span>
+    </h1>
+    <p class="slide-subtitle animate-in" style="text-align: center; font-size: 24px; font-weight: 300;">
+        Mari Bangun Perisian Indonesia yang <span class="gradient-text-3">Aman, Cerdas, dan Tak Terkalahkan.</span>
+    </p>
+
+    <div class="animate-in" style="margin-top: 64px; text-align: center;">
+        <p style="font-size: 20px; font-weight: 800; margin-bottom: 8px;">PRIVASIMU™</p>
+        <p style="font-size: 15px; color: var(--text-muted);">PT Sainskerta Solusi Nusantara</p>
+        <div style="display: flex; gap: 24px; justify-content: center; margin-top: 24px;">
+            <a href="#" style="color: var(--primary); text-decoration: none; font-weight: 600;">🌐 privasimu.sainskerta.net</a>
+            <a href="#" style="color: var(--primary); text-decoration: none; font-weight: 600;">📧 info@privasimu.id</a>
+        </div>
     </div>
 </div>
 

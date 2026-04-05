@@ -126,7 +126,7 @@ class VerifyLicense
         <div class="lock">🔒</div>
         <span class="badge">LICENSE REQUIRED</span>
         <h1>Aplikasi Terkunci</h1>
-        <p>Aplikasi ini memerlukan license aktif dari Privasimu™ untuk dapat digunakan. Silahkan hubungi administrator atau dapatkan license key Anda.</p>
+        <p>Aplikasi ini memerlukan license aktif dari Privasimu™ untuk dapat digunakan. Silakan hubungi administrator atau dapatkan license key Anda.</p>
         <a href="https://license-priva.sainskerta.net" target="_blank">Dapatkan License →</a>
     </div>
 </body>

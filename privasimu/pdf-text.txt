@@ -1,0 +1,88 @@
+       Requirement Data Discovery 
+Berikut merupakan kebutuhan fungsional yang perlu ada dalam solusi Data Discovery:  
+a. Functional Requirement 
+No Deskripsi 
+1 
+Dapat terhubung dengan berbagai data terstruktur dan tidak terstruktur, 
+seperti database dan datalake/data warehouse (BigData) serta file PDF, 
+Word, Excel, dan lainnya.  
+2 
+Mengidentifikasi data pribadi dari data terstruktur dan tidak terstruktur di 
+berbagai lingkungan. Dapat memeriksa isi lengkap sebuah file dan 
+mengidentifikasi kesamaan dengan data lain, nama file, dan nama kolom. 
+Data pribadi yang telah ditemukan dapat ditampilkan dalam bentuk identifier 
+unik seperti CIF, Nomor HP, dll, dan juga rincian seperti jumlah total, lokasi 
+database, table, dan field tertentu, atau lokasi file. Dapat melakukan capture 
+di tingkat object. 
+3 
+Mengklasifikasikan data di berbagai lingkungan dan dataset. Misalnya, 
+penggunaan machine learning atau regex untuk mengkategorikan data 
+pribadi. 
+4 
+Mendefinisikan ketentuan untuk mengidentifikasi dan mengklasifikasikan 
+data ke dalam kategori tertentu (contoh: data umum dan spesifik). Dapat 
+membuat data catalogue (Katalog data pribadi yang digunakan di seluruh 
+BNI) 
+5 
+Melakukan konfigurasi jenis elemen data menggunakan kombinasi kata 
+kunci dan regex, untuk proses klasifikasi data seperti Nama Lengkap, 
+Tanggal Lahir, Nomor Identifikasi (KTP), Nomor Kartu Keluarga (No KK), 
+Nomor Pokok Wajib Pajak (NPWP), dan data pribadi lainnya. 
+6 Penjadwalan scanning otomatis dan dengan parameter yang ditetapkan, 
+seperti antara lain waktu, ruang lingkup, dan jenis data. 
+7 
+Admin access untuk DPO untuk melihat dan mengelola scanning history, 
+status, dan rincian laporan, serta melakukan konfigurasi lainnya, termasuk 
+user management untuk menambah, mengubah, menghapus, dan izin akses 
+user. 
+8 Mengekspor hasil scan dalam berbagai format data seperti CSV, Excel, atau 
+PDF untuk keperluan analisis atau pelaporan. 
+9 
+Audit log untuk melacak semua aktivitas yang dilakukan, termasuk interaksi 
+pengguna, modifikasi sistem, dan peristiwa lainnya untuk tujuan 
+pemantauan, analisis, dan kepatuhan. Terdiri dari: 
+• Timestamp 
+• User ID/Username 
+• Aktivitas 
+• IP Address 
+10 Dapat melakukan tagging metadata di berbagai data source 
+11 
+Dapat memeriksa langkah-langkah keamanan yang telah diterapkan 
+terhadap data pribadi dalam database, datalake, data warehouse dan/atau 
+aplikasi (seperti encryption atau masking) 
+12 Memiliki kapabilitas pemetaan data dan visualisasi aliran data antara 
+berbagai data source (data lineage) 
+13 Dashboard untuk menampilkan hasil pemindaian seperti jumlah elemen data 
+dalam database, jumlah tabel dengan klasifikasi, dll. 14 
+Memindai dan menemukan data terstruktur berdasarkan filter dan kondisi 
+tertentu. Filter ini dapat mencakup kriteria seperti jenis data, nama kolom, 
+atau value atau parameter tertentu seperti jumlah baris atau data tertentu. 
+15 Dapat menunjukan atau mencatat tujuan pemrosesan data yang terdeteksi.  
+16 Dapat diintegrasikan dengan tools lainnya seperti ROPA dan DSR, termasuk 
+otomatisasi. 
+17 Dapat melakukan pencarian data detail By CIF / Name / Nomor Rekening / 
+Cabang Pembuka / IP Address 
+ 
+• Informasi tambahan untuk no 9 (log) 
+No Informasi Deskripsi 
+1 Tanggal dan Waktu Tanggal dan waktu ketika user melakukan akses 
+ataupun aktivitas tertentu. 
+2 User Identitas (email) user yang melakukan perubahan 
+3 Aktivitas Detail aktivitas yang dilakukan oleh user 
+4 IP Address IP address user yang melakukan perubahan 
+• Informasi tambahan untuk no 13 (dasbor) 
+Berikut merupakan informasi yang setidaknya ada pada halaman dasbor yang 
+dapat diakses oleh PT. Bank Negara Indonesia (Persero): 
+No Informasi Deskripsi 
+1 Data terstruktur 
+informasi komprehensif seperti nama basis data, 
+jumlah elemen data dalam basis data, jumlah tabel 
+dengan klasifikasi, jumlah kolom dengan klasifikasi, 
+nama skema, nama tabel, jenis elemen data dan 
+kategorinya, nama kolom beserta tipe datanya, 
+serta lokasi sistem data. 
+2 Data tidak terstruktur 
+informasi lengkap seperti nama dokumen, jumlah 
+elemen data, jumlah jenis elemen data, kategori 
+dokumen, dan lokasi sistem data. 
+ 

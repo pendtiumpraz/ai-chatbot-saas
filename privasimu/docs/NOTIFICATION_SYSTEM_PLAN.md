@@ -1,6 +1,6 @@
 # Notification System — Implementation Plan
 
-**Status:** Sprint 1 + Sprint 2 complete (local, not yet pushed) · Sprint 3-4 pending
+**Status:** Sprint 1 + 2 + 3 complete · Sprint 4 pending
 
 ## Kill Switch Hierarchy (2-tier)
 
@@ -254,12 +254,15 @@ Table toggle per (kind × module × channel):
   - ROPA assigned/assignee-added (in-flow, store + update hook)
 - [ ] (Deferred to Sprint 3) Consent withdrawal spike, @-mentions, GAP cooldown, Vendor Risk overdue — need metric thresholds / cross-module hooks
 
-### 🔜 Sprint 3 — Email + Digest
-- [ ] Laravel Mailable per kind (3 templates: alert/warning/info)
-- [ ] Queue driver switch to database/redis
-- [ ] Daily/weekly digest scheduler
-- [ ] Unsubscribe link per email
-- [ ] Email provider config (Resend/Postmark/SES)
+### ✅ Sprint 3 — Email + Digest (DONE)
+- [x] `NotificationMail` Mailable with kind-colored blade template (alert/warning/info)
+- [x] `NotificationDigestMail` grouped summary email
+- [x] `SendNotificationDigest` command (daily + weekly variants)
+- [x] Digest scheduler: `notifications:digest daily` at 08:00 + `notifications:digest weekly` Monday 08:00
+- [x] NotificationService email side-channel: per-user preference gated, honors `digest` setting (instant fires immediately, daily/weekly batched)
+- [x] `MAIL_MAILER=log` default for dev safety; tenants configure provider via `.env`
+- [x] Email toggle live in `/settings/notifications`
+- [ ] (Deferred to Sprint 4) Signed unsubscribe link, provider config UI
 
 ### 🔜 Sprint 4 — Realtime + Platform Ops
 - [ ] Laravel Echo + Soketi/Pusher broadcast channel `private-users.{id}`

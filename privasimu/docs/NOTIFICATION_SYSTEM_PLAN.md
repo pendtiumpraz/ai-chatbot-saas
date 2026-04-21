@@ -1,6 +1,6 @@
 # Notification System — Implementation Plan
 
-**Status:** Sprint 1 + 2 + 3 complete · Sprint 4 pending
+**Status:** Sprint 1 + 2 + 3 + 4 complete · Realtime push (WebSocket) deferred
 
 ## Kill Switch Hierarchy (2-tier)
 
@@ -264,12 +264,15 @@ Table toggle per (kind × module × channel):
 - [x] Email toggle live in `/settings/notifications`
 - [ ] (Deferred to Sprint 4) Signed unsubscribe link, provider config UI
 
-### 🔜 Sprint 4 — Realtime + Platform Ops
-- [ ] Laravel Echo + Soketi/Pusher broadcast channel `private-users.{id}`
-- [ ] Browser push notifications (ServiceWorker + Web Push API)
-- [ ] Root notifications: system.release, system.backup_failed, system.ai_outage
-- [ ] Superadmin notifications: tenant.signup, tenant.upgrade_request, billing.*
-- [ ] Partner API webhook receiver → notification trigger
+### ✅ Sprint 4 — Platform Ops (DONE, realtime deferred)
+- [x] Tenant signup hook in `AuthController::register` → notifies all superadmins with org/admin contact in metadata
+- [x] `notifications:announce-release` command (CI/CD-triggerable) for root notifications with version, side (be/fe/both), changelog URL, highlights
+- [x] Signed unsubscribe URL in email footer — Laravel `temporarySignedRoute` 30-day expiry, lands on `/settings/notifications?unsubscribed=...` with toast
+- [x] Public `GET /api/notifications/unsubscribe` route validates signature then sets preference row enabled=false
+- [x] Bell poll interval tightened 60s → 30s
+- [ ] (Deferred) Realtime via Laravel Echo + Soketi/Pusher — needs infra setup
+- [ ] (Deferred) Browser push via ServiceWorker + Web Push API
+- [ ] (Deferred) Backup health monitor, AI provider outage detection, partner webhook receiver
 
 ---
 

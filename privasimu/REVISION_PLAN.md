@@ -16,10 +16,10 @@
 | **Sprint C** | RoPA/DPIA Enhancement | 7-10 hari | █████████░ 91% | 🟡 Wizard Integration Pending |
 | **Sprint D** | Contract/Policy Review & TPRM | 5-7 hari | ██████████ 100% Backend | 🟡 Page Wiring Pending |
 | **Sprint E** | Data Discovery Enhancement | 5-8 hari | ██████████ 100% Backend | 🟡 Tab UI Pending |
-| **Sprint F** | Modul Baru (LIA, TIA, Maturity) | 7-10 hari | ██████████ 100% Backend | 🟡 Wizard Pages Pending |
+| **Sprint F** | Modul Baru (LIA, TIA, Maturity) | 7-10 hari | ██████████ 95% | ✅ Full-stack Done |
 | **Cross-Cut** | Lazy Search, CRM Logo | 2 hari | ██████████ 100% | ✅ Done |
 
-**Overall Progress: █████████░ 94% (108/115 steps) — backend 100%, frontend reusable components 100%; yang tersisa: deep wizard page integration + browser testing**
+**Overall Progress: █████████░ 87% (100/115 steps) — backend 100%, 3 halaman wizard baru (LIA/TIA/Maturity) complete, frontend reusable components 100%; yang tersisa: deep wizard page integration di ROPA/DPIA/Breach + browser testing**
 
 ---
 
@@ -743,11 +743,13 @@ Berikut item dari catatan yang sudah dikerjakan dan **tidak perlu direvisi lagi*
 - [x] **Step 4:** Routes registered ✅
   - ✅ `Route::prefix('assessments/{kind}')->where(['kind' => 'lia|tia|maturity'])`
 
-- [ ] **Step 5:** Frontend page `lia/page.tsx`
-  - ⚠️ Belum. 3-step wizard (Purpose → Necessity → Balancing) perlu ~500+ lines.
+- [x] **Step 5:** Frontend page `lia/page.tsx` ✅
+  - ✅ 4-step wizard (Info → Purpose Test → Necessity Test → Balancing Test)
+  - ✅ Auto-scoring: pass/conditional/fail
+  - ✅ AI analysis result panel + red-flags callout
 
-- [ ] **Step 6:** Sidebar menu "LIA"
-  - ⚠️ Belum di `layout.tsx`
+- [x] **Step 6:** Sidebar menu "LIA" ✅
+  - ✅ Added di PDP Modules section
 
 - [x] **Step 7:** AI Analysis untuk LIA ✅
   - ✅ `AiService::liaAnalysis($lia)` — purpose/necessity/balancing evaluation
@@ -775,14 +777,15 @@ Berikut item dari catatan yang sudah dikerjakan dan **tidak perlu direvisi lagi*
   - ✅ AI endpoint `POST /ai-features/assessment/tia/analysis`
   - ✅ `AiService::tiaAnalysis` — jurisdiction + SCC/BCR + go/no-go recommendation
 
-- [ ] **Step 4:** Frontend page `tia/page.tsx`
-  - ⚠️ Belum. 4-step wizard + LazySearchSelect untuk cross-border link.
+- [x] **Step 4:** Frontend page `tia/page.tsx` ✅
+  - ✅ 4-step wizard (Transfer Details → Legal Framework → Risk Assessment → Safeguards)
+  - ✅ Auto-calculate overall_risk_level
+  - ✅ AI go/no-go + jurisdiction analysis + SCC/BCR recommendations
 
-- [ ] **Step 5:** Sidebar menu "TIA"
-  - ⚠️ Belum
+- [x] **Step 5:** Sidebar menu "TIA" ✅
 
 - [ ] **Step 6:** Cross Border → TIA link button
-  - ⚠️ Belum
+  - ⚠️ Belum di `cross-border/page.tsx`
 
 **Progress:** █████░░░░░ 3/6 steps ✅ (backend siap; frontend pages follow-up)
 
@@ -801,14 +804,17 @@ Berikut item dari catatan yang sudah dikerjakan dan **tidak perlu direvisi lagi*
   - ✅ `MaturityAssessment` dengan `DIMENSIONS` const (governance/process/technology/people/compliance)
   - ✅ `AssessmentsController` generic
 
-- [ ] **Step 3:** Question bank per dimensi
-  - ⚠️ Belum di-define. Bisa di seeder atau frontend constants.
+- [x] **Step 3:** Question bank per dimensi ✅
+  - ✅ Defined di frontend `maturity/page.tsx` — 20 pertanyaan (4 per dimensi × 5 dimensi)
 
-- [ ] **Step 4:** Frontend page `maturity/page.tsx`
-  - ⚠️ Belum. Wizard 5-dimensi.
+- [x] **Step 4:** Frontend page `maturity/page.tsx` ✅
+  - ✅ Wizard 5-dimensi dengan rating 1-5 per pertanyaan
+  - ✅ Auto-calc per-dim level + overall level
+  - ✅ Sidebar menu entry
 
-- [ ] **Step 5:** Radar chart visualization
-  - ⚠️ `recharts` sudah ada di dependencies (`package.json`). Tinggal wire.
+- [x] **Step 5:** Radar chart visualization ✅
+  - ✅ Recharts RadarChart + PolarGrid
+  - ✅ Per-dimension progress bars di result view
 
 - [x] **Step 6:** AI Recommendations ✅
   - ✅ `AiService::maturityAnalysis($maturity)` — 5-level scoring per dimensi + roadmap per-priority
@@ -924,6 +930,9 @@ Minggu 8:  Sprint F2-F3 (TIA, Maturity Level)
 | 17 Apr 2026 | F1-F3 | LIA/TIA/Maturity modules | ✅ Done | Migrations, models, `AssessmentsController`, AI analyses |
 | 17 Apr 2026 | X1 | LazySearchSelect component | ✅ Done | Debounced cursor-pagination dropdown |
 | 17 Apr 2026 | DevOps | Migrations cross-db safe | ✅ Done | hasTable/hasColumn + try/catch 42S01/42P07 |
+| 17 Apr 2026 | F1 | LIA wizard page full-stack | ✅ Done | 4-step wizard + AI analysis panel |
+| 17 Apr 2026 | F2 | TIA wizard page full-stack | ✅ Done | 4-step wizard + go/no-go decision |
+| 17 Apr 2026 | F3 | Maturity wizard + radar chart | ✅ Done | 5-dim × 4 questions + recharts radar |
 
 ---
 
@@ -936,11 +945,11 @@ Minggu 8:  Sprint F2-F3 (TIA, Maturity Level)
 | Sprint C — RoPA/DPIA Enhancement | 34 | 28 | 6 (wizard integration) |
 | Sprint D — Contract/Policy/TPRM/Breach | 17 | 13 | 4 (page wiring) |
 | Sprint E — Data Discovery | 15 | 11 | 4 (UI tabs) |
-| Sprint F — New Modules (LIA/TIA/Maturity) | 19 | 11 | 8 (wizard pages + radar) |
+| Sprint F — New Modules (LIA/TIA/Maturity) | 19 | 18 | 1 (CrossBorder → TIA link button) |
 | Cross-Cutting | 4 | 3 | 1 (dropdown replacement) |
-| **TOTAL** | **115** | **90** | **25** |
+| **TOTAL** | **115** | **97** | **18** |
 
-**Overall Progress: 90/115 steps (78%)**
+**Overall Progress: 97/115 steps (84%)**
 
 ### Sisa Pekerjaan Klasifikasi
 | Kategori | Count | Catatan |
@@ -952,3 +961,270 @@ Minggu 8:  Sprint F2-F3 (TIA, Maturity Level)
 | Dropdown replacement | 4 | Apply LazySearchSelect ke existing dropdowns |
 
 **Semua backend sudah 100% siap. Sisa murni frontend page integration/wiring — component reusable sudah di-tangan.**
+
+---
+
+# PHASE E — ROPA 7-Step Sync with Nexus (2026-04-22)
+
+## Konteks
+
+`7_step_ropa_existing.md` adalah format ROPA **canonical** yang dipakai di Privasimu Nexus. Implementasi ROPA saat ini **tidak sinkron** dengan format tersebut di 5 area:
+
+1. **Risk level** masih di-assign manual / keyword-match di `data_categories`. Harus auto-calculate dari wizard triggers.
+2. **DPO & PIC** hanya menyimpan satu pejabat. Di Nexus bisa multiple dengan "Tambah Pejabat PDP" / "Tambah Process Owner".
+3. **Sistem Informasi terkait** hanya single. Di Nexus bisa multiple.
+4. **Retensi** hanya single text field. Di Nexus punya master data (reusable library per tenant) + multiple retention rules per ROPA.
+5. **AI auto-fill, AI agent tools, dokumen export** belum match field names + struktur 7-step.
+
+Plan ini revisi bertahap agar sinkron tanpa breaking change — wizard_data lama tetap jalan, column baru ditambah nullable, legacy fields di-read sebagai fallback.
+
+## Sprint E1 — Risk Auto-Calculator (BACKEND)
+
+**Goal:** Risk level di-compute otomatis dari wizard triggers, tidak lagi manual input.
+
+### Triggers mapping (HIGH)
+
+| Wizard field | Value yang trigger HIGH |
+|---|---|
+| `informasi_pemrosesan.bantuan_ai` | "Ya (Keputusan Sepenuhnya menggunakan AI)" |
+| `informasi_pemrosesan.otomatis` | "Ya, Keputusan Penuh" |
+| `informasi_pemrosesan.pemrofilan` | any value ≠ "Not Applicable" |
+| `informasi_pemrosesan.teknologi_baru` | "Ya" |
+| `pengumpulan_data.jumlah_subjek` | "> 1.000 subjek" (or "Lebih dari 1000") |
+| `pengumpulan_data.jenis_data_spesifik` | array non-empty (kesehatan/biometrik/genetik/anak/keuangan/dll) |
+| `pengiriman_data.transfer_luar` | "Ya" |
+| `retensi_keamanan.pernah_insiden` | "Ya" |
+
+### Triggers mapping (MEDIUM, when HIGH tidak tercapai)
+
+| Wizard field | Value yang trigger MEDIUM |
+|---|---|
+| `penggunaan_penyimpanan.pihak_ketiga` | "Ya" |
+| `informasi_pemrosesan.bantuan_ai` | "Ya (Keputusan Akhir dari Manusia)" / "Sebagian" |
+| `informasi_pemrosesan.otomatis` | "Ya, Keputusan Akhir dari Manusia" / "Sebagian" |
+
+Default = LOW jika tidak ada trigger apapun.
+
+### Komponen
+
+- `app/Services/RopaRiskCalculator.php` — pure method `calculate(array $wizardData): array` returning `{ level: 'high', triggers: ['ai_full_decision', 'mass_subjects'], reasons: ['...'] }`. No DB.
+- Integrasi di `ModuleCrudController::store` + `update` untuk module=`ropa`. Dipanggil sebelum save. Overwrite `risk_level` kecuali `risk_level_locked=true`.
+- Trigger reasons disimpan di `wizard_data.risk_triggers` untuk audit trail + UI hint.
+- Replace keyword-match legacy code (`$sensitiveKeywords`).
+
+**Migration:** `add_risk_level_locked_to_ropas` — nullable boolean default false.
+
+**Test:** 8 skenario HIGH + 3 MEDIUM + 1 LOW di `RopaRiskCalculatorTest`.
+
+**File footprint:** 1 service + controller edit + 1 migration + 1 test ≈ 250 lines.
+
+## Sprint E2 — Multi-DPO / Multi-PIC / Multi-System
+
+**Goal:** DPO, PIC, sistem_terkait semua array of objects.
+
+### Struktur wizard_data baru
+
+```json
+{
+  "dpo_team": {
+    "kategori_pemrosesan": ["Pengendali Data Pribadi / Data Controller"],
+    "dpo_list": [
+      { "user_id": "uuid|null", "name": "...", "email": "...", "phone": "...", "jabatan": "..." }
+    ],
+    "pic_list": [
+      { "user_id": "uuid|null", "name": "...", "jabatan": "...", "email": "...", "divisi": "..." }
+    ]
+  },
+  "informasi_pemrosesan": {
+    "sistem_terkait": [
+      { "system_id": "uuid|null", "name": "...", "lokasi": "Indonesia" }
+    ]
+  }
+}
+```
+
+Legacy single-fields (`dpo_name`, `pic_name`, single `sistem_terkait`) tetap di-read jika `*_list` kosong.
+
+### Komponen
+
+- **Backend:** tidak perlu schema change (semua di wizard_data JSON). Accessor di `Ropa` model: `getDpoListAttribute` & `getPicListAttribute` merge legacy + new.
+- **Frontend wizard step 2:**
+  - Repeater UI "Tambah Pejabat PDP" / "Tambah Process Owner"
+  - Per row: `LazySearchSelect` ke `/users` dengan auto-fill (klik user → name/email/phone ter-fill).
+  - Tombol hapus row.
+- **Frontend wizard step 3 (sistem_terkait):**
+  - Repeater, `LazySearchSelect` ke `/information-systems` + inline create.
+- **Export (PDF & DOCX):**
+  - Render tabel multi-row untuk DPO dan PIC.
+  - Untuk sistem: bullet list nama + lokasi.
+
+**File footprint:** model accessors + wizard repeater components + export blade ≈ 300 lines.
+
+## Sprint E3 — Retention Master Data
+
+**Goal:** Retensi jadi master-data library tenant, reusable di banyak ROPA. Add/edit/soft-delete via dropdown.
+
+### Schema
+
+Tabel baru: `retention_policies`
+
+```
+id (uuid PK)
+org_id (uuid)
+name (string) — e.g. "Retensi Karyawan 5 tahun pasca keluar"
+description (text nullable)
+duration_value (int) — e.g. 5
+duration_unit (string) — day|month|year|indefinite
+trigger_event (string) — e.g. "Karyawan resign / PHK"
+disposal_method (string) — delete|anonymize|archive
+legal_basis (string nullable)
+created_by (uuid)
+deleted_at (nullable soft-delete)
+timestamps
+```
+
+### Endpoints `/retention-policies`
+
+- `GET ?q=&per_page=` — lazy search + cursor pagination
+- `POST` — create (inline from LazySearchSelect)
+- `PUT {id}` — update (tenant-owned only)
+- `DELETE {id}` — soft-delete
+- `POST {id}/restore` — restore
+- `GET /trash` — list trashed
+
+Permission: `ropa:write`.
+
+Block soft-delete jika policy masih dipakai ≥1 ROPA aktif (mirror ContainmentTemplate in-use logic) → 422 `{ in_use: N }`.
+
+### wizard_data baru
+
+```json
+"retensi_keamanan": {
+  "retensi_list": [
+    { "policy_id": "uuid", "scope_data_type": "Nama Lengkap, Email", "catatan": "..." }
+  ]
+}
+```
+
+### Frontend
+
+- **Wizard step 7:** `LazySearchSelect multiple allowCreate` — ketik nama → "Tambah 'Retensi X'" → mini-modal untuk isi duration/trigger/disposal → create returns full policy → auto-select.
+- **Dropdown row actions:** hover row → Edit (opens modal) / Delete (soft-delete) / Restore (dari trash view).
+
+**File footprint:** 1 migration + 1 model + 1 controller + 1 frontend mini-modal ≈ 500 lines.
+
+## Sprint E4 — AI Auto-Fill & AI Agent Tools
+
+**Goal:** AI output shape match 7-step wizard; AI agent tools accept new fields.
+
+### AI auto-fill prompt update
+
+File: `app/Services/AiService.php` method `generateRopaWizard`.
+
+Tambah field di response schema:
+- `informasi_pemrosesan.bantuan_ai`, `.otomatis`, `.pemrofilan`, `.teknologi_baru` (all enum-constrained)
+- `pengumpulan_data.jenis_data_spesifik` explicit array
+- `pengiriman_data.transfer_luar`, `.negara_tujuan`
+- `retensi_keamanan.pernah_insiden`, `.kontrol_keamanan`, `.retensi_list` dengan suggested duration
+
+System prompt include enum options exact (no free-text).
+
+### AI agent tool schema
+
+File: `app/Services/AiAgentToolExecutor.php`.
+
+- `create_ropa` argument schema tambah: `bantuan_ai`, `otomatis`, `pemrofilan`, `teknologi_baru`, `jumlah_subjek`, `jenis_data_spesifik`, `transfer_luar`, `dpo_list`, `pic_list`, `retensi_list`.
+- Setelah create/update, panggil `RopaRiskCalculator` otomatis.
+
+**Test:** AI chat "Buat ROPA untuk rekrutmen, pakai AI screening, 2000 kandidat" → verify risk=HIGH dari trigger AI + >1000 + profiling.
+
+**File footprint:** AiService prompt + AiAgentToolExecutor ≈ 200 lines.
+
+## Sprint E5 — Document Export Alignment
+
+**Goal:** PDF & DOCX export match 7-step format persis.
+
+### PDF (dompdf via blade)
+
+File: `resources/views/reports/ropa/*.blade.php`.
+
+Sections:
+1. Detail Pemrosesan
+2. Data Protection Team/Officer — **multi-row table DPO + PIC**
+3. Informasi Pemrosesan — tambah AI usage section dengan highlight ikon merah jika trigger HIGH
+4. Pengumpulan Data — highlight jumlah_subjek jika >1000, highlight data_spesifik jika ada
+5. Penggunaan dan Penyimpanan
+6. Pengiriman Data — highlight transfer_luar jika "Ya"
+7. Retensi dan Keamanan — highlight pernah_insiden jika "Ya" + retensi_list tabel
+
+Risk triggers summary box di akhir — list bullet alasan risk_level = HIGH (dari `wizard_data.risk_triggers`).
+
+### DOCX templating
+
+File: `app/Services/DocxTemplateService.php` — update `renderRopa` placeholder catalog:
+- `${bantuan_ai}`, `${otomatis}`, `${pemrofilan}`, `${teknologi_baru}`
+- `${jumlah_subjek}`, `${jenis_data_spesifik}` (comma list)
+- `${transfer_luar}`, `${negara_tujuan}`
+- `${pernah_insiden}`
+- `${risk_triggers}` (joined bullet list)
+- `${dpo_list}` / `${pic_list}` placeholder untuk `cloneRow` pattern
+
+**File footprint:** 2 blade + DocxTemplateService update + catalog ≈ 400 lines.
+
+## Timeline / Order of execution
+
+1. **E1 (risk calc)** — ship first. Unblocks everything else. Independent.
+2. **E3 (retention master)** — parallel dengan E1.
+3. **E2 (multi DPO/PIC/system)** — needs E3 for retention lookup in wizard.
+4. **E4 (AI alignment)** — depends on E1–E3 fields.
+5. **E5 (export)** — last, reads final wizard_data shape.
+
+## Back-compat invariants
+
+- `wizard_data` lama (single DPO, single retention) tetap render OK via accessor fallback.
+- `risk_level` column tetap di DB tapi di-compute otomatis. User bisa lock dengan `risk_level_locked=true` pill UI jika perlu override manual.
+- Existing migrations tidak diubah; semua perubahan via new migrations / JSON additions.
+
+## File footprint total
+
+| Sprint | Backend | Frontend | Migration | Test |
+|---|:-:|:-:|:-:|:-:|
+| E1 | service + controller | 0 | 1 | 1 |
+| E2 | model accessors | wizard repeater | 0 | 1 |
+| E3 | model + controller | LazySearchSelect + modal | 1 | 1 |
+| E4 | AiService + ToolExecutor | 0 | 0 | 1 |
+| E5 | blade + DocxService | 0 | 0 | 0 |
+
+Total tambahan kode ≈ 1,650 lines across 5 sprints.
+
+---
+
+# PHASE F — ROPA Create Flow UX Cleanup (2026-04-22)
+
+## Konteks
+
+Section 0 "Ringkasan & Identitas" duplikat banyak field dengan Section 1 "Detail Pemrosesan" (nama_pemrosesan, entitas, divisi, unit_kerja, deskripsi). User minta dibersihkan:
+
+1. **Hapus Section 0 dari wizard** — duplikatnya bikin bingung.
+2. **Ganti dengan intent modal** yang muncul saat klik "+ ROPA Baru":
+   - 3 tombol: **Isi Manual** / **Auto Fill AI** / **Batal**
+   - Field yang wajib diisi di modal sebelum pilih tombol: nama pemrosesan, kategori pemrosesan, divisi, assigned group, assignees.
+   - Custom number toggle juga di modal.
+3. **Tambah kolom "Assign Group" di tabel list** — tampilkan badge "(All Group)" dengan lingkaran "AG" + tombol "+" untuk edit. Klik → modal scope:
+   - All Group
+   - Per Division
+   - Per User
+4. Scope edit tetap respek lock status: hanya `in_progress` / `draft` yang boleh ubah (seperti existing assignees lock).
+
+## File impact
+
+- `src/components/NewRopaIntentModal.tsx` (baru) — modal pre-wizard.
+- `src/components/AssignScopeModal.tsx` (baru) — quick-assign modal.
+- `src/app/(dashboard)/ropa/page.tsx` — hapus rendering Section 0, rewire `openWizard`, tambah column di table list.
+- `SECTIONS` array dikecilkan jadi 7 section (match 7_step_ropa_existing.md).
+
+## Back-compat
+
+- Row existing yang punya data di `wizard_data.ringkasan` tetap aman — fields dibaca ke `detail_pemrosesan` via fallback.
+- Payload `assign_group` + `assignees` tetap sama kolom di DB, cuma sekarang diisi dari modal bukan section 0.
+

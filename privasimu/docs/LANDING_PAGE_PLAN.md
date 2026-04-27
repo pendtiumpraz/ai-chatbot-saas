@@ -682,8 +682,8 @@ Yang TIDAK tiru (kita beda):
 | Phase 2B — Landing `/` | ✅ DONE | 9 sections + animated HeroFlowSvg + Manifesto emotional block + bilingual i18n | SSR 200, copy verified |
 | Phase 2C — Inner pages | ✅ DONE | /about (mission+story+values+team paginated), /products (4 outcome groups), /products/[slug] (static fallback + DB), /solutions (4 tabs) | SSR 200 each |
 | Phase 2D — CTA + SEO | ✅ DONE | /contact (lead form → POST /api/public/landing/lead), /compare (3 competitor tabs + table), sitemap.ts, robots.ts. Pricing dihapus per arahan klien. | SSR 200, sitemap.xml + robots.txt valid |
-| Phase 3 — Admin UI | ◻ pending | landing-admin tabs (Hero/Features/Team/Testi/Logos/Products/Stats/SEO) + drag-reorder + image upload, gated `role.root` | — |
-| Phase 4 — Polish | ◻ pending | scroll animations, Lighthouse audit, OG dynamic via next/og, cookie banner (eat-our-own-dogfood) | — |
+| Phase 3 — Admin UI | ✅ DONE | landing-admin route group + 8 tabs (Hero/Settings, Features, Team, Testimonials, Logos, Products, Stats, Leads Inbox) + drag-reorder + image upload, gated client-side to `role in {root, superadmin}`. Generic `ResourceCrud` component handles CRUD/upload/reorder; bespoke pages for Hero (singleton form) and Team (grid + pagination). | tsc clean, prod build OK |
+| Phase 4 — Polish | ✅ DONE | Scroll reveal (IntersectionObserver + prefers-reduced-motion), Cookie banner (Privasimu Consent Conductor branded) at bottom-left, edge-runtime dynamic OG image at `/opengraph-image` (1200×630). Sitemap+robots already shipped in 2D. | prod build OK |
 | Cross — Partner logos seed | 🟡 in progress | 48 logos extracted dari pptx ke `backend/storage/app/public/landing/logos/partner-NN.png`. Belum update `LandingSeeder` untuk insert real names per slot. Names per logo perlu identifikasi manual atau OCR. | logos in storage, seeder pending |
 
 ### 12.7 Slice 2 result summary (2026-04-27)
